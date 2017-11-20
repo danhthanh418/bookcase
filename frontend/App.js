@@ -6,13 +6,16 @@ export default class App extends React.Component {
     return (
       <TabBarIOS>
         <TabBarIOS.Item
-          title="Wish List">
+          title="Wish List"
+          icon={require('./img/list.png')}>
         </TabBarIOS.Item>
         <TabBarIOS.Item
-          title="Reading">
+          title="Reading"
+          icon={require('./img/reading.png')}>
         </TabBarIOS.Item>
         <TabBarIOS.Item
-          title="Bookshelf">
+          title="Bookshelf"
+          icon={require('./img/shelf.png')}>
         </TabBarIOS.Item>
       </TabBarIOS>
     );
