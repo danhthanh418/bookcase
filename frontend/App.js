@@ -9,6 +9,16 @@ const styles = {
   },
 };
 
+const leftButtonConfig = {
+  title: "Add",
+  handler: () => alert("TODO: add"),
+};
+
+const rightButtonConfig = {
+  title: "Filter",
+  handler: () => alert("TODO: filter"),
+};
+
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -22,8 +32,10 @@ export default class App extends React.Component {
       <View style={styles.container}>
         <NavigationBar
           style={{borderBottomWidth: 0.3, borderBottomColor: "gray"}}
-          title={{title: "Reading List"}}
           tintColor="#F5F5F5"
+          title={{title: "Reading List"}}
+          leftButton={leftButtonConfig}
+          rightButton={rightButtonConfig}
         />
         <TabBarIOS selectedTab={this.state.selectedTab}>
           <TabBarIOS.Item
