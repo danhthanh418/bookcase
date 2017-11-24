@@ -59,7 +59,7 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10
 }
 
-ROOT_URLCONF = 'bookcase.urls'
+ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
     {
@@ -89,7 +89,7 @@ DATABASES = {
         'NAME': 'bookcase_db',
         'USER': 'root',
         'PASSWORD': 'root',
-        'HOST': '127.0.0.1',
+        'HOST': 'localhost',
         'PORT': '5432',
     }
 }
