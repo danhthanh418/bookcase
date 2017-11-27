@@ -1,5 +1,14 @@
 from django.contrib.auth.models import User, Group
+
 from rest_framework import serializers
+
+from bookcase.books.models import Book
+
+
+class BookSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Book
+        fields = ('url', 'title', 'authors', 'rating')
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -12,3 +21,4 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Group
         fields = ('url', 'name')
+

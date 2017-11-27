@@ -31,8 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'bookcase.api',
     'bookcase.books',
-    'bookcase.users',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

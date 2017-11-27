@@ -18,14 +18,13 @@ from django.contrib import admin
 
 from rest_framework import routers
 
-from bookcase.books import views as books_views
-from bookcase.users import views as users_views
+from bookcase.api import views
 
 
 router = routers.DefaultRouter()
-router.register(r'books', books_views.BooksViewSet)
-router.register(r'users', users_views.UserViewSet)
-router.register(r'groups', users_views.GroupViewSet)
+router.register(r'books', views.BooksViewSet)
+router.register(r'users', views.UserViewSet)
+router.register(r'groups', views.GroupViewSet)
 
 
 urlpatterns = [
