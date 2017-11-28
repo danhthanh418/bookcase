@@ -61,7 +61,7 @@ export default class BooksList extends React.Component {
             renderItem={({ item, separators }) =>
               <Cell
                 title={item.title}
-                onPress={console.log}
+                onPress={() => this.props.navigation.navigate('BookDetails')}
                 onHighlightRow={separators.highlight}
                 onUnHighlightRow={separators.unhighlight}
               />}
