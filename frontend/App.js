@@ -1,9 +1,67 @@
-import { StackNavigator } from 'react-navigation';
+import React from 'react';
+import { Image, Text } from 'react-native';
+import { SafeAreaView, StackNavigator, TabNavigator } from 'react-navigation';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import BooksList from './components/BooksList';
 import BookDetails from './components/BookDetails';
 
+const MyTextScreen = ({ navigation }) => (
+  <Text>Hello world</Text>
+);
+
+const TabNav = TabNavigator(
+  {
+    WishListTab: {
+      screen: MyTextScreen,
+      path: '/list',
+      navigationOptions: {
+        title: 'Bookcase',
+        tabBarLabel: 'Wish List',
+        tabBarIcon: ({ tintColor, focused }) => (
+          <Image
+            source={require('./img/list.png')}
+          />
+        ),
+      },
+    },
+    ReadingTab: {
+      screen: BooksList,
+      path: '/',
+      navigationOptions: {
+        title: 'Bookcase',
+        tabBarLabel: 'Reading',
+        tabBarIcon: ({ tintColor, focused }) => (
+          <Image
+            source={require('./img/reading.png')}
+          />
+        ),
+      },
+    },
+    BookShelfTab: {
+      screen: MyTextScreen,
+      path: '/shelf',
+      navigationOptions: {
+        title: 'Bookcase',
+        tabBarLabel: 'Book Shelf',
+        tabBarIcon: ({ tintColor, focused }) => (
+          <Image
+            source={require('./img/shelf.png')}
+          />
+        ),
+      },
+    },
+  },
+  {
+    tabBarPosition: 'bottom',
+    animationEnabled: false,
+    swipeEnabled: false,
+  },
+);
 
 export default StackNavigator({
+  Root: {
+    screen: TabNav,
+  },
   BooksList: {
     screen: BooksList,
     navigationOptions: {
