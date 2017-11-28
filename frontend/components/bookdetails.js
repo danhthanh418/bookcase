@@ -7,6 +7,6 @@ export default class BookDetails extends React.Component {
     const { navigate, state: { params } } = this.props.navigation;
     return (
       <Text>Item title: {params.title}</Text>
-    )
-  };
+    );
+  }
 }

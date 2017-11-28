@@ -10,15 +10,15 @@ const styles = {
 };
 
 // FIXME: replace by appropriate url
-const url = "https://jsonplaceholder.typicode.com/users";
+const url = 'https://jsonplaceholder.typicode.com/users';
 var data = [];
 fetch(url)
   .then(response => response.json())
   .then(json => {
     json.forEach((item) => {
       data.push({
-          id: item.id,
-          title: item.username,
+        id: item.id,
+        title: item.username,
       });
     });
   });
@@ -27,7 +27,7 @@ export default class BooksList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedTab: 'reading'
+      selectedTab: 'reading',
     };
   }
 
@@ -44,7 +44,7 @@ export default class BooksList extends React.Component {
                 selectedTab: 'list'
               });
             }}>
-          <Text>TODO: Wish list view</Text>
+            <Text>TODO: Wish list view</Text>
           </TabBarIOS.Item>
           <TabBarIOS.Item
             selected={this.state.selectedTab === "reading"}
@@ -52,13 +52,13 @@ export default class BooksList extends React.Component {
             icon={require("../img/reading.png")}
             onPress={() => {
               this.setState({
-                selectedTab: 'reading'
+                selectedTab: 'reading',
               });
-            }}>
-          <FlatList
-            data={data}
-            keyExtractor={(item, index) => item.id}
-            renderItem={({ item, separators }) =>
+          }}>
+            <FlatList
+              data={data}
+              keyExtractor={(item, index) => item.id}
+              renderItem={({ item, separators }) =>
               <Cell
                 title={item.title}
                 onPress={() => this.props.navigation.navigate('BookDetails', {title: `${item.title}`})}
@@ -70,15 +70,15 @@ export default class BooksList extends React.Component {
           />
           </TabBarIOS.Item>
           <TabBarIOS.Item
-            selected={this.state.selectedTab === "shelf"}
+            selected={this.state.selectedTab === 'shelf'}
             title="Bookshelf"
-            icon={require("../img/shelf.png")}
+            icon={require('../img/shelf.png')}
             onPress={() => {
               this.setState({
-                selectedTab: 'shelf'
+                selectedTab: 'shelf',
               });
-            }}>
-          <Text>TODO: Bookshelf view</Text>
+          }}>
+            <Text>TODO: Bookshelf view</Text>
           </TabBarIOS.Item>
         </TabBarIOS>
       </View>
