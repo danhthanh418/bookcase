@@ -1,3 +1,5 @@
+"use strict";
+
 import React from 'react';
 import { FlatList, TabBarIOS, Text, View } from 'react-native';
 import { Cell, Separator } from 'react-native-tableview-simple';
