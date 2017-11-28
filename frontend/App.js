@@ -1,6 +1,6 @@
 import { StackNavigator } from 'react-navigation';
-import BooksList from './components/bookslist';
-import BookDetails from './components/bookdetails';
+import BooksList from './components/BooksList';
+import BookDetails from './components/BookDetails';
 
 
 export default StackNavigator({
