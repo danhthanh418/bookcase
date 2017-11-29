@@ -1,11 +1,10 @@
 import React from 'react';
 import { Image, Text } from 'react-native';
-import { SafeAreaView, StackNavigator, TabNavigator } from 'react-navigation';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import { StackNavigator, TabNavigator } from 'react-navigation';
 import BooksList from './components/BooksList';
 import BookDetails from './components/BookDetails';
 
-const MyTextScreen = ({ navigation }) => (
+const MyTextScreen = () => (
   <Text>Hello world</Text>
 );
 
@@ -17,7 +16,7 @@ const TabNav = TabNavigator(
       navigationOptions: {
         title: 'Bookcase',
         tabBarLabel: 'Wish List',
-        tabBarIcon: ({ tintColor, focused }) => (
+        tabBarIcon: () => (
           <Image
             source={require('./img/list.png')}
           />
@@ -30,7 +29,7 @@ const TabNav = TabNavigator(
       navigationOptions: {
         title: 'Bookcase',
         tabBarLabel: 'Reading',
-        tabBarIcon: ({ tintColor, focused }) => (
+        tabBarIcon: () => (
           <Image
             source={require('./img/reading.png')}
           />
@@ -43,7 +42,7 @@ const TabNav = TabNavigator(
       navigationOptions: {
         title: 'Bookcase',
         tabBarLabel: 'Book Shelf',
-        tabBarIcon: ({ tintColor, focused }) => (
+        tabBarIcon: () => (
           <Image
             source={require('./img/shelf.png')}
           />
