@@ -23,31 +23,22 @@ fetch(url)
     });
   });
 
-export default class BooksList extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      selectedTab: 'reading',
-    };
-  }
+const BooksList = props => (
+  <View style={styles.container}>
+    <FlatList
+      data={data}
+      keyExtractor={(item, index) => item.id}
+      renderItem={({ item, separators }) =>
+        <Cell
+          title={item.title}
+          onPress={() => props.navigation.navigate('BookDetails', { title: `${item.title}` })}
+          onHighlightRow={separators.highlight}
+          onUnHighlightRow={separators.unhighlight}
+        />}
+      ItemSeparatorComponent={({ highlighted }) =>
+        <Separator isHidden={highlighted} />}
+    />
+  </View>
+);
 
-  render() {
-    return (
-      <View style={styles.container}>
-        <FlatList
-          data={data}
-          keyExtractor={(item, index) => item.id}
-          renderItem={({ item, separators }) =>
-          <Cell
-            title={item.title}
-            onPress={() => this.props.navigation.navigate('BookDetails', {title: `${item.title}`})}
-            onHighlightRow={separators.highlight}
-            onUnHighlightRow={separators.unhighlight}
-          />}
-        ItemSeparatorComponent={({ highlighted }) =>
-          <Separator isHidden={highlighted} />}
-      />
-      </View>
-    );
-  }
-}
+export default BooksList;
