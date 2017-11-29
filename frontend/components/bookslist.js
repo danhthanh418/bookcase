@@ -1,6 +1,6 @@
 import React from 'react';
 import { FlatList, View } from 'react-native';
-import { Cell, Separator } from 'react-native-tableview-simple';
+import { Avatar, ListItem } from 'react-native-elements';
 
 
 const styles = {
@@ -28,15 +28,34 @@ const BooksList = props => (
     <FlatList
       data={data}
       keyExtractor={(item, index) => item.id}
-      renderItem={({ item, separators }) =>
-        <Cell
-          title={item.title}
+      renderItem={({ item }) => (
+        <ListItem
           onPress={() => props.navigation.navigate('BookDetails', { title: `${item.title}` })}
-          onHighlightRow={separators.highlight}
-          onUnHighlightRow={separators.unhighlight}
-        />}
-      ItemSeparatorComponent={({ highlighted }) =>
-        <Separator isHidden={highlighted} />}
+          avatar={
+            <Avatar
+              source={{}}
+              containerStyle={{ marginBottom: 2 }}
+              avatarStyle={{ resizeMode: 'cover' }}
+              width={100}
+              height={100}
+            />
+          }
+          title={`${item.title}`}
+          titleStyle={{ fontSize: 16 }}
+          containerStyle={{ borderBottomWidth: 0, marginBottom: 20 }}
+        />
+      )}
+      ItemSeparatorComponent={() => (
+        <View
+          style={{
+            height: 0.5,
+            width: '95%',
+            backgroundColor: '#CED0CE',
+            marginLeft: '5%',
+            marginBottom: '5%'
+          }}
+        />
+      )}
     />
   </View>
 );
