@@ -17,9 +17,10 @@ const TabNav = TabNavigator(
       navigationOptions: {
         title: 'Bookcase',
         tabBarLabel: 'Wish List',
-        tabBarIcon: () => (
+        tabBarIcon: ({ tintColor }) => (
           <Image
             source={require('./img/list.png')}
+            style={{ tintColor: tintColor }}
           />
         ),
         headerBackTitle: 'Back',
@@ -31,9 +32,10 @@ const TabNav = TabNavigator(
       navigationOptions: {
         title: 'Bookcase',
         tabBarLabel: 'Reading',
-        tabBarIcon: () => (
+        tabBarIcon: ({ tintColor }) => (
           <Image
             source={require('./img/reading.png')}
+            style={{ tintColor: tintColor }}
           />
         ),
         headerBackTitle: 'Back',
@@ -45,9 +47,10 @@ const TabNav = TabNavigator(
       navigationOptions: {
         title: 'Bookcase',
         tabBarLabel: 'Book Shelf',
-        tabBarIcon: () => (
+        tabBarIcon: ({ tintColor }) => (
           <Image
             source={require('./img/shelf.png')}
+            style={{ tintColor: tintColor }}
           />
         ),
         headerBackTitle: 'Back',
