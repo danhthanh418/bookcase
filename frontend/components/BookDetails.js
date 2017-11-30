@@ -1,10 +1,27 @@
 import React from 'react';
-import { Text, TextInput, View } from 'react-native';
+import { Picker, StyleSheet, Text, TextInput, View } from 'react-native';
 
 
 const constants = {
   NOTES_PLACEHOLDER: 'Type your notes here',
 };
+
+const styles = StyleSheet.create({
+  header: {
+    paddingLeft: 15,
+    paddingTop: 10,
+    paddingBottom: 10,
+    color: 'gray',
+  },
+  textInput: {
+    height: 200,
+    backgroundColor: 'white',
+    borderColor: '#C7C7C7',
+    borderWidth: 0.5,
+    marginBottom: 20,
+    fontSize: 16,
+  },
+});
 
 export default class BookDetails extends React.Component {
   constructor(props) {
@@ -15,24 +32,9 @@ export default class BookDetails extends React.Component {
   render() {
     return (
       <View>
-        <Text
-          style={{
-            paddingLeft: 15,
-            paddingTop: 10,
-            paddingBottom: 10,
-            color: 'gray',
-          }}
-        >
-          NOTES
-        </Text>
+        <Text style={styles.header}>NOTES</Text>
         <TextInput
-          style={{
-            height: 200,
-            backgroundColor: 'white',
-            borderColor: '#C7C7C7',
-            borderWidth: 0.5,
-            fontSize: 16,
-          }}
+          style={styles.textInput}
           onFocus={() => {
               if (this.state.text === constants.NOTES_PLACEHOLDER) {
                 this.setState({ text: '' });
@@ -44,6 +46,15 @@ export default class BookDetails extends React.Component {
           multiline
           numberOfLines={11}
         />
+        <Text style={styles.header}>STATUS</Text>
+        <Picker
+          selectedValue={this.state.readingStatus}
+          onValueChange={(itemValue, itemIndex) => this.setState({ readingStatus: itemValue })}
+        >
+          <Picker.Item label="Unstarted" value="0" />
+          <Picker.Item label="Started" value="1" />
+          <Picker.Item label="Finished" value="2" />
+        </Picker>
       </View>
     );
   }
