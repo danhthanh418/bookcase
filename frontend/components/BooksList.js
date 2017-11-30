@@ -10,7 +10,7 @@ const styles = {
 };
 
 // FIXME: replace by appropriate url
-const url = 'https://jsonplaceholder.typicode.com/users';
+const url = 'https://jsonplaceholder.typicode.com/albums';
 var data = [];
 fetch(url)
   .then(response => response.json())
@@ -18,7 +18,7 @@ fetch(url)
     json.forEach((item) => {
       data.push({
         id: item.id,
-        title: item.username,
+        title: item.title,
       });
     });
   });
@@ -41,6 +41,7 @@ const BooksList = props => (
             />
           }
           title={`${item.title}`}
+          subtitle='Author Goeshere'
           titleStyle={{ fontSize: 16 }}
           containerStyle={{ borderBottomWidth: 0, marginBottom: 20 }}
         />
