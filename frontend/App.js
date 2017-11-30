@@ -22,6 +22,7 @@ const TabNav = TabNavigator(
             source={require('./img/list.png')}
           />
         ),
+        headerBackTitle: 'Back',
       },
     },
     ReadingTab: {
@@ -35,6 +36,7 @@ const TabNav = TabNavigator(
             source={require('./img/reading.png')}
           />
         ),
+        headerBackTitle: 'Back',
       },
     },
     BookShelfTab: {
@@ -48,6 +50,7 @@ const TabNav = TabNavigator(
             source={require('./img/shelf.png')}
           />
         ),
+        headerBackTitle: 'Back',
       },
     },
   },
@@ -66,7 +69,6 @@ export default StackNavigator({
     screen: BooksList,
     navigationOptions: {
       title: 'List',
-      headerBackTitle: 'Back',
     },
   },
   BookDetails: {
