@@ -55,6 +55,9 @@ const TabNav = TabNavigator(
     },
   },
   {
+    initialRouteName: 'ReadingTab',
+  },
+  {
     tabBarPosition: 'bottom',
     animationEnabled: false,
     swipeEnabled: false,
