@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, Text } from 'react-native';
+import { Button, Image, Text } from 'react-native';
 import { StackNavigator, TabNavigator } from 'react-navigation';
 import BooksList from './components/BooksList';
 import BookDetails from './components/BookDetails';
@@ -29,7 +29,7 @@ const TabNav = TabNavigator(
     ReadingTab: {
       screen: BooksList,
       path: '/',
-      navigationOptions: {
+      navigationOptions: ({ navigation }) => ({
         title: 'Bookcase',
         tabBarLabel: 'Reading',
         tabBarIcon: ({ tintColor }) => (
@@ -39,7 +39,19 @@ const TabNav = TabNavigator(
           />
         ),
         headerBackTitle: 'Back',
-      },
+        headerLeft: (
+          <Button
+            title="Add"
+            onPress={() => alert('todo')}
+          />
+        ),
+        headerRight: (
+          <Button
+            title="Filter"
+            onPress={() => alert('todo')}
+          />
+        ),
+      }),
     },
     BookShelfTab: {
       screen: MyTextScreen,
