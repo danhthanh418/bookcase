@@ -41,7 +41,7 @@ const BooksList = props => (
             />
           }
           title={`${item.title}`}
-          subtitle='Author Goeshere'
+          subtitle="Author Goeshere"
           titleStyle={{ fontSize: 16 }}
           containerStyle={{ borderBottomWidth: 0, marginBottom: 20 }}
         />
@@ -53,7 +53,7 @@ const BooksList = props => (
             width: '95%',
             backgroundColor: '#CED0CE',
             marginLeft: '5%',
-            marginBottom: '5%'
+            marginBottom: '5%',
           }}
         />
       )}

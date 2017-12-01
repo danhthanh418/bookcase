@@ -3,6 +3,7 @@ import { Button, Image, Text } from 'react-native';
 import { StackNavigator, TabNavigator } from 'react-navigation';
 import BooksList from './components/BooksList';
 import BookDetails from './components/BookDetails';
+import ListFilters from './components/ListFilters';
 
 
 const MyTextScreen = () => (
@@ -47,8 +48,8 @@ const TabNav = TabNavigator(
         ),
         headerRight: (
           <Button
-            title="Filter"
-            onPress={() => alert('todo')}
+            title="Filters"
+            onPress={() => navigation.navigate('Filters')}
           />
         ),
       }),
@@ -93,6 +94,12 @@ export default StackNavigator({
     screen: BookDetails,
     navigationOptions: {
       title: 'Detail',
+    },
+  },
+  Filters: {
+    screen: ListFilters,
+    navigationOptions: {
+      title: 'Filters',
     },
   },
 });
