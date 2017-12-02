@@ -36,8 +36,8 @@ const BooksList = props => (
               source={{}}
               containerStyle={{ marginBottom: 2 }}
               avatarStyle={{ resizeMode: 'cover' }}
-              width={100}
-              height={100}
+              width={80}
+              height={120}
             />
           }
           title={`${item.title}`}
