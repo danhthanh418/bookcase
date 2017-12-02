@@ -15,12 +15,20 @@ const styles = StyleSheet.create({
   },
 });
 
+const sectionData = [
+  {
+    title: 'SORT BY',
+    data: [
+      { key: 'Date Added (default)' },
+      { key: 'Title' },
+      { key: 'Author' },
+    ],
+    key: 'A',
+  },
+];
+
 export default class ListFilters extends React.Component {
   render() {
-    const sectionData = [
-      { title: 'SORT BY', data: [{ key: 'Date Added (default)' }, { key: 'Title' }, { key: 'Author' }], key: 'A' },
-    ];
-
     return (
       <SectionList
         renderItem={({ item }) => (
