@@ -9,7 +9,7 @@ const styles = {
   },
 };
 
-// FIXME: replace by appropriate url
+// FIXME: replace by appropriate url (based on tab)
 const url = 'https://jsonplaceholder.typicode.com/albums';
 var data = [];
 fetch(url)

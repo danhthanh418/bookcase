@@ -14,9 +14,9 @@ const MyTextScreen = () => (
 const TabNav = TabNavigator(
   {
     WishListTab: {
-      screen: MyTextScreen,
+      screen: BooksList,
       path: '/list',
-      navigationOptions: {
+      navigationOptions: ({ navigation }) => ({
         title: 'Bookcase',
         tabBarLabel: 'Wish List',
         tabBarIcon: ({ tintColor }) => (
@@ -26,7 +26,19 @@ const TabNav = TabNavigator(
           />
         ),
         headerBackTitle: 'Back',
-      },
+        headerLeft: (
+          <Button
+            title="Add"
+            onPress={() => navigation.navigate('AddBook')}
+          />
+        ),
+        headerRight: (
+          <Button
+            title="Filters"
+            onPress={() => navigation.navigate('Filters')}
+          />
+        ),
+      }),
     },
     ReadingTab: {
       screen: BooksList,
@@ -56,9 +68,9 @@ const TabNav = TabNavigator(
       }),
     },
     BookShelfTab: {
-      screen: MyTextScreen,
+      screen: BooksList,
       path: '/shelf',
-      navigationOptions: {
+      navigationOptions: ({ navigation }) => ({
         title: 'Bookcase',
         tabBarLabel: 'Book Shelf',
         tabBarIcon: ({ tintColor }) => (
@@ -68,7 +80,19 @@ const TabNav = TabNavigator(
           />
         ),
         headerBackTitle: 'Back',
-      },
+        headerLeft: (
+          <Button
+            title="Add"
+            onPress={() => navigation.navigate('AddBook')}
+          />
+        ),
+        headerRight: (
+          <Button
+            title="Filters"
+            onPress={() => navigation.navigate('Filters')}
+          />
+        ),
+      }),
     },
   },
   {
