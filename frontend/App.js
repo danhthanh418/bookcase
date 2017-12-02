@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Image, Text } from 'react-native';
 import { StackNavigator, TabNavigator } from 'react-navigation';
+import AddBook from './components/AddBook';
 import BooksList from './components/BooksList';
 import BookDetails from './components/BookDetails';
 import ListFilters from './components/ListFilters';
@@ -43,7 +44,7 @@ const TabNav = TabNavigator(
         headerLeft: (
           <Button
             title="Add"
-            onPress={() => alert('todo')}
+            onPress={() => navigation.navigate('AddBook')}
           />
         ),
         headerRight: (
@@ -100,6 +101,12 @@ export default StackNavigator({
     screen: ListFilters,
     navigationOptions: {
       title: 'Filters',
+    },
+  },
+  AddBook: {
+    screen: AddBook,
+    navigationOptions: {
+      title: 'New Book',
     },
   },
 });
