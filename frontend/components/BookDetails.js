@@ -27,7 +27,10 @@ const styles = StyleSheet.create({
 export default class BookDetails extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { notes: constants.NOTES_PLACEHOLDER };
+    this.state = {
+      notes: props.navigation.state.params.notes? props.navigation.state.params.notes : constants.NOTES_PLACEHOLDER,
+      readingStatus: props.navigation.state.params.readingStatus,
+    };
   }
 
   render() {
@@ -50,7 +53,7 @@ export default class BookDetails extends React.Component {
         <Text style={styles.header}>STATUS</Text>
         <Picker
           selectedValue={this.state.readingStatus}
-          onValueChange={(itemValue, itemIndex) => this.setState({ readingStatus: itemValue })}
+          onValueChange={itemValue => this.setState({ readingStatus: itemValue })}
         >
           <Picker.Item label="Unstarted" value="0" />
           <Picker.Item label="Started" value="1" />
