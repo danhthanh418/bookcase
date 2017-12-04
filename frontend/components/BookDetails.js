@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
 export default class BookDetails extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { text: constants.NOTES_PLACEHOLDER };
+    this.state = { notes: constants.NOTES_PLACEHOLDER };
   }
 
   render() {
@@ -37,13 +37,13 @@ export default class BookDetails extends React.Component {
         <TextInput
           style={styles.textInput}
           onFocus={() => {
-              if (this.state.text === constants.NOTES_PLACEHOLDER) {
-                this.setState({ text: '' });
+              if (this.state.notes === constants.NOTES_PLACEHOLDER) {
+                this.setState({ notes: '' });
               }
             }
           }
-          onChangeText={text => this.setState({ text })}
-          value={this.state.text}
+          onChangeText={notes => this.setState({ notes })}
+          value={this.state.notes}
           multiline
           numberOfLines={11}
         />
