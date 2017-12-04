@@ -26,9 +26,13 @@ export default class BooksList extends React.Component {
   }
 
   makeRemoteRequest = () => {
+
+
+    /*
+    TODO: uncomment and change the url
+
     const url = 'https://jsonplaceholder.typicode.com/albums';
     this.setState({ loading: true });
-
     fetch(url)
       .then(res => res.json())
       .then(json => {
@@ -42,6 +46,32 @@ export default class BooksList extends React.Component {
       .catch(error => {
         this.setState({ error, loading: false });
       });
+      */
+
+    const json = [
+      {
+          "id": 1,
+          "title": "Clean Code",
+          "authors": [
+              "Robert C. Martin",
+              "Dean Wampler"
+          ],
+          "notes": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.",
+          "rating": 5,
+          "reading_status": 2
+      },
+      {
+          "id": 2,
+          "title": "Hands-On Machine Learning with Scikit-Learn and TensorFlow",
+          "authors": [
+              "Aurélien Géron"
+          ],
+          "notes": "Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.",
+          "rating": null,
+          "reading_status": 1
+      }
+    ]
+    this.setState({ data: json });
   };
 
   render() {
@@ -63,7 +93,7 @@ export default class BooksList extends React.Component {
                 />
               }
               title={`${item.title}`}
-              subtitle="Author Goeshere"
+              subtitle={`${item.authors}`}
               titleStyle={{ fontSize: 16 }}
               containerStyle={{ borderBottomWidth: 0, marginBottom: 20 }}
             />
