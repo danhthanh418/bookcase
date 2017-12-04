@@ -82,7 +82,11 @@ export default class BooksList extends React.Component {
           keyExtractor={(item, index) => item.id}
           renderItem={({ item }) => (
             <ListItem
-              onPress={() => this.props.navigation.navigate('BookDetails', { title: `${item.title}` })}
+              onPress={() => this.props.navigation.navigate('BookDetails', {
+                title: `${item.title}`,
+                notes: `${item.notes}`,
+                reading_status: `${item.reading_status}`
+              })}
               avatar={
                 <Avatar
                   source={{}}
