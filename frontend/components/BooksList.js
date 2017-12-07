@@ -26,8 +26,6 @@ export default class BooksList extends React.Component {
   }
 
   makeRemoteRequest = () => {
-
-
     /*
     TODO: uncomment and change the url
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { SectionList, StyleSheet, Text } from 'react-native';
+import { SectionList, StyleSheet, Text, View } from 'react-native';
 import { ListItem } from 'react-native-elements';
 
 
@@ -28,6 +28,20 @@ const sectionData = [
 ];
 
 export default class ListFilters extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedFilter: 'Date Added (default)',
+    };
+  }
+
+  setCheckmark(item) {
+    if (this.state.selectedFilter === item.key) {
+      return { name: 'check', type: 'font-awesome', style: { marginRight: 10, fontSize: 15 } };
+    }
+    return <View />;
+  }
+
   render() {
     return (
       <SectionList
@@ -36,7 +50,11 @@ export default class ListFilters extends React.Component {
             containerStyle={styles.listItem}
             title={`${item.key}`}
             titleStyle={{ fontSize: 16 }}
-            rightIcon={{ name: 'check', type: 'font-awesome', style: { marginRight: 10, fontSize: 15 } }}
+            rightIcon={this.setCheckmark(item)}
+            onPress={() => {
+                this.setState({ selectedFilter: item.key });
+              }
+            }
           />
         )}
         renderSectionHeader={({ section }) => (
