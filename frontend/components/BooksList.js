@@ -1,6 +1,6 @@
 import React from 'react';
 import { FlatList, View } from 'react-native';
-import { Avatar, ListItem } from 'react-native-elements';
+import { Avatar, ListItem, SearchBar } from 'react-native-elements';
 
 
 const styles = {
@@ -26,6 +26,7 @@ export default class BooksList extends React.Component {
       error: null,
       refreshing: false,
       readingStatus: tabsReadingStatus[props.navigation.state.routeName],
+      searchText: '',
     };
   }
 
@@ -124,7 +125,7 @@ export default class BooksList extends React.Component {
     />
   );
 
-  renderItemSeparatorComponent = () => (
+ renderItemSeparatorComponent = () => (
     <View
       style={{
         height: 0.5,
@@ -133,6 +134,15 @@ export default class BooksList extends React.Component {
         marginLeft: '5%',
         marginBottom: '5%',
       }}
+    />
+  );
+
+  renderListHeaderComponent = () => (
+    <SearchBar
+      placeholder="Search among your books..."
+      onChangeText={(text) => this.setState({ searchText: text})}
+      onClearText={() => this.setState({ searchText: ''})}
+      lightTheme
     />
   );
 
@@ -145,6 +155,7 @@ export default class BooksList extends React.Component {
           keyExtractor={(item, index) => item.id}
           renderItem={this.renderItem}
           ItemSeparatorComponent={this.renderItemSeparatorComponent}
+          ListHeaderComponent={this.renderListHeaderComponent}
         />
       </View>
     );
