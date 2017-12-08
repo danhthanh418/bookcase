@@ -1,7 +1,8 @@
 import React from 'react';
-import { Button, Image } from 'react-native';
+import { Image } from 'react-native';
 import { StackNavigator, TabNavigator } from 'react-navigation';
 import AddBook from './components/AddBook';
+import AddButton from './components/AddButton';
 import BooksList from './components/BooksList';
 import BookDetails from './components/BookDetails';
 
@@ -22,10 +23,7 @@ const TabNav = TabNavigator(
         ),
         headerBackTitle: 'Back',
         headerLeft: (
-          <Button
-            title="Add"
-            onPress={() => navigation.navigate('AddBook')}
-          />
+          <AddButton navigation={navigation} />
         ),
       }),
     },
@@ -43,10 +41,7 @@ const TabNav = TabNavigator(
         ),
         headerBackTitle: 'Back',
         headerLeft: (
-          <Button
-            title="Add"
-            onPress={() => navigation.navigate('AddBook')}
-          />
+          <AddButton navigation={navigation} />
         ),
       }),
     },
@@ -64,10 +59,7 @@ const TabNav = TabNavigator(
         ),
         headerBackTitle: 'Back',
         headerLeft: (
-          <Button
-            title="Add"
-            onPress={() => navigation.navigate('AddBook')}
-          />
+          <AddButton navigation={navigation} />
         ),
       }),
     },
