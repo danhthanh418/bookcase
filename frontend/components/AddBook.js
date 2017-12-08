@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default class ListFilters extends React.Component {
+export default class AddBook extends React.Component {
   constructor(props) {
     super(props);
     this.state = { text: constants.SEARCH_PLACEHOLDER };

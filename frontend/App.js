@@ -4,7 +4,6 @@ import { StackNavigator, TabNavigator } from 'react-navigation';
 import AddBook from './components/AddBook';
 import BooksList from './components/BooksList';
 import BookDetails from './components/BookDetails';
-import ListFilters from './components/ListFilters';
 
 
 const TabNav = TabNavigator(
@@ -28,12 +27,6 @@ const TabNav = TabNavigator(
             onPress={() => navigation.navigate('AddBook')}
           />
         ),
-        headerRight: (
-          <Button
-            title="Filters"
-            onPress={() => navigation.navigate('Filters')}
-          />
-        ),
       }),
     },
     ReadingTab: {
@@ -55,12 +48,6 @@ const TabNav = TabNavigator(
             onPress={() => navigation.navigate('AddBook')}
           />
         ),
-        headerRight: (
-          <Button
-            title="Filters"
-            onPress={() => navigation.navigate('Filters')}
-          />
-        ),
       }),
     },
     BookShelfTab: {
@@ -80,12 +67,6 @@ const TabNav = TabNavigator(
           <Button
             title="Add"
             onPress={() => navigation.navigate('AddBook')}
-          />
-        ),
-        headerRight: (
-          <Button
-            title="Filters"
-            onPress={() => navigation.navigate('Filters')}
           />
         ),
       }),
@@ -115,12 +96,6 @@ export default StackNavigator({
     screen: BookDetails,
     navigationOptions: {
       title: 'Detail',
-    },
-  },
-  Filters: {
-    screen: ListFilters,
-    navigationOptions: {
-      title: 'Filters',
     },
   },
   AddBook: {
