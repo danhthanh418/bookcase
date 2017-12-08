@@ -1,15 +1,11 @@
 import React from 'react';
-import { Button, Image, Text } from 'react-native';
+import { Button, Image } from 'react-native';
 import { StackNavigator, TabNavigator } from 'react-navigation';
 import AddBook from './components/AddBook';
 import BooksList from './components/BooksList';
 import BookDetails from './components/BookDetails';
 import ListFilters from './components/ListFilters';
 
-
-const MyTextScreen = () => (
-  <Text>Hello world</Text>
-);
 
 const TabNav = TabNavigator(
   {
