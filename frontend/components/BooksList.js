@@ -146,12 +146,32 @@ export default class BooksList extends React.Component {
     />
   );
 
+  filterData = (query, data) => {
+    const searchText = this.getNormalizedString(query);
+    const readingStatus = this.state.readingStatus;
+    const dataInTabs = data.filter(item => item.reading_status === readingStatus);
+
+    if (!searchText) {
+      return dataInTabs;
+    }
+
+    return dataInTabs.filter(item => {
+      const title = this.getNormalizedString(item.title);
+      const authors = this.getNormalizedString(item.authors.join());
+      return title.indexOf(searchText) !== -1 || authors.indexOf(searchText) !== -1;
+    });
+  };
+
+  getNormalizedString = (str) => {
+    return str.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLowerCase();
+  };
+
   render() {
-    const filteredList = this.state.data.filter(item => item.reading_status === this.state.readingStatus);
+    const filteredData = this.filterData(this.state.searchText, this.state.data);
     return (
       <View style={styles.container}>
         <FlatList
-          data={filteredList}
+          data={filteredData}
           keyExtractor={(item, index) => item.id}
           renderItem={this.renderItem}
           ItemSeparatorComponent={this.renderItemSeparatorComponent}
