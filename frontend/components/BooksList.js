@@ -57,46 +57,46 @@ export default class BooksList extends React.Component {
 
     const json = [
       {
-          "id": 1,
-          "title": "Learning React Native",
-          "authors": [
-              "Bonnie Eisenman"
-          ],
-          "notes": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.",
-          "rating": null,
-          "reading_status": 0
+        "id": 1,
+        "title": "Learning React Native",
+        "authors": [
+            "Bonnie Eisenman"
+        ],
+        "notes": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.",
+        "rating": null,
+        "reading_status": 0
       },
       {
-          "id": 2,
-          "title": "Clean Code",
-          "authors": [
-              "Robert C. Martin",
-              "Dean Wampler"
-          ],
-          "notes": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.",
-          "rating": 5,
-          "reading_status": 2
+        "id": 2,
+        "title": "Two Scoops of Django 1.11",
+        "authors": [
+            "Audrey Roy Greenfeld",
+            "Daniel Roy Greenfeld"
+        ],
+        "notes": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.",
+        "rating": null,
+        "reading_status": 2
       },
       {
-          "id": 3,
-          "title": "Hands-On Machine Learning with Scikit-Learn and TensorFlow",
-          "authors": [
-              "Aurélien Géron"
-          ],
-          "notes": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.",
-          "rating": null,
-          "reading_status": 1
+        "id": 3,
+        "title": "Clean Code",
+        "authors": [
+            "Robert C. Martin",
+            "Dean Wampler"
+        ],
+        "notes": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.",
+        "rating": 5,
+        "reading_status": 2
       },
       {
-          "id": 4,
-          "title": "Two Scoops of Django 1.11",
-          "authors": [
-              "Audrey Roy Greenfeld",
-              "Daniel Roy Greenfeld"
-          ],
-          "notes": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.",
-          "rating": null,
-          "reading_status": 2
+        "id": 4,
+        "title": "Hands-On Machine Learning with Scikit-Learn and TensorFlow",
+        "authors": [
+            "Aurélien Géron"
+        ],
+        "notes": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.",
+        "rating": null,
+        "reading_status": 1
       },
     ]
     this.setState({ data: json });
@@ -166,8 +166,24 @@ export default class BooksList extends React.Component {
     return str.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLowerCase();
   };
 
+  sortData = (data) => {
+    return data.sort((a, b) => {
+      const titleA = this.getNormalizedString(a.title);
+      const titleB = this.getNormalizedString(b.title);
+
+      if (titleA < titleB) {
+        return -1;
+      } else if (titleA > titleB) {
+        return 1;
+      }
+
+      return 0;
+    });
+  };
+
   render() {
     const filteredData = this.filterData(this.state.searchText, this.state.data);
+    const filteredAndSortedData = this.sortData(filteredData);
     return (
       <View style={styles.container}>
         <FlatList
