@@ -119,7 +119,7 @@ export default class BooksList extends React.Component {
         />
       }
       title={`${item.title}`}
-      subtitle={`${item.authors}`}
+      subtitle={`${item.authors.join(', ')}`}
       titleStyle={{ fontSize: 16 }}
       containerStyle={{ borderBottomWidth: 0, marginBottom: 20 }}
     />
