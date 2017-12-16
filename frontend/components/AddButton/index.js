@@ -8,7 +8,7 @@ export default class AddButton extends React.Component {
       <View>
         <TouchableOpacity onPress={() => { this.props.navigation.navigate('AddBook') }}>
           <Image
-            source={require('../img/plus.png')}
+            source={require('./../../img/plus.png')}
             style={{
               marginLeft: 10,
               justifyContent: 'center',

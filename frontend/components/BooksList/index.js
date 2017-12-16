@@ -1,13 +1,8 @@
 import React from 'react';
 import { FlatList, View } from 'react-native';
 import { Avatar, ListItem, SearchBar } from 'react-native-elements';
+import styles from './styles';
 
-
-const styles = {
-  container: {
-    flex: 1,
-  },
-};
 
 // maps the tabs and their reading status
 const tabsReadingStatus = {
