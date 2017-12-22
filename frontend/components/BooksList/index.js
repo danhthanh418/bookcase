@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, View } from 'react-native';
+import { FlatList, Text, View } from 'react-native';
 import { Avatar, ListItem, SearchBar } from 'react-native-elements';
 import styles from './styles';
 
@@ -50,6 +50,7 @@ export default class BooksList extends React.Component {
       });
       */
 
+    this.setState({ loading: false, error: false });
     const json = [
       {
         "id": 1,
@@ -176,7 +177,17 @@ export default class BooksList extends React.Component {
     });
   };
 
-  render() {
+  renderLoading = () => {
+    // TODO: use a spinner instead
+    return <Text>Loading...</Text>;
+  };
+
+  renderError = () => {
+    // TODO: add some style and a refresh button
+    return <Text>Loading error! Please try again.</Text>;
+  };
+
+  renderList = () => {
     const filteredData = this.filterData(this.state.searchText, this.state.data);
     const filteredAndSortedData = this.sortData(filteredData);
     return (
@@ -189,6 +200,16 @@ export default class BooksList extends React.Component {
           ListHeaderComponent={this.renderListHeaderComponent}
         />
       </View>
-    );
+    );    
+  };
+
+  render() {
+    if (this.state.loading) {
+      return this.renderLoading();
+    } else if (this.state.error) {
+      return this.renderError();
+    } else {
+      return this.renderList();
+    }
   }
 }
