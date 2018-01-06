@@ -101,6 +101,7 @@ export default class BooksList extends React.Component {
   renderItem = ({item}) => (
     <ListItem
       onPress={() => this.props.navigation.navigate('BookDetails', {
+        id: `${item.id}`,
         title: `${item.title}`,
         notes: `${item.notes}`,
         readingStatus: `${item.reading_status.toString()}`
