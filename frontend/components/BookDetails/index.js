@@ -1,5 +1,5 @@
 import React from 'react';
-import { Picker, Text, TextInput, View } from 'react-native';
+import { AsyncStorage, Picker, Text, TextInput, View } from 'react-native';
 import styles from './styles';
 
 
@@ -12,10 +12,36 @@ export default class BookDetails extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      notes: props.navigation.state.params.notes? props.navigation.state.params.notes : constants.NOTES_PLACEHOLDER,
+      notes: constants.NOTES_PLACEHOLDER,
       readingStatus: props.navigation.state.params.readingStatus,
     };
   }
+
+  componentDidMount() {
+    // FIXME: set the key to be book specific
+    this.fetchData('@Bookcase:notes', 'notes');
+  }
+
+  fetchData = async (storeKey, stateKey) => {
+    try {
+      const value = await AsyncStorage.getItem(storeKey);
+      if (value !== null) {
+        this.setState({ [stateKey]: value });
+      }
+    } catch (error) {
+      // TODO: error retrieving data, do something
+    }
+  };
+
+  setData = (storeKey, stateKey, value) => {
+    try {
+      this.setState({ [stateKey]: value }, async () => {
+        await AsyncStorage.setItem(storeKey, value);
+      });
+    } catch (error) {
+      // TODO: error saving data, do something
+    }
+  };
 
   render() {
     return (
@@ -29,7 +55,8 @@ export default class BookDetails extends React.Component {
               }
             }
           }
-          onChangeText={notes => this.setState({ notes })}
+          // FIXME: set the key to be book specific
+          onChangeText={notes => this.setData('@Bookcase:notes', 'notes', notes)}
           value={this.state.notes}
           multiline
           numberOfLines={11}
