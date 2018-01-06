@@ -19,7 +19,9 @@ export default class BookDetails extends React.Component {
 
   componentDidMount() {
     // FIXME: set the key to be book specific
-    this.fetchData('@Bookcase:notes', 'notes');
+    Object.keys(this.state).forEach((key) => {
+      this.fetchData(`@Bookcase:${key}`, key);
+    });
   }
 
   fetchData = async (storeKey, stateKey) => {
@@ -64,7 +66,7 @@ export default class BookDetails extends React.Component {
         <Text style={styles.header}>STATUS</Text>
         <Picker
           selectedValue={this.state.readingStatus}
-          onValueChange={itemValue => this.setState({ readingStatus: itemValue })}
+          onValueChange={itemValue => this.setData('@Bookcase:readingStatus', 'readingStatus', itemValue)}
         >
           <Picker.Item label="Unstarted" value="0" />
           <Picker.Item label="Started" value="1" />
