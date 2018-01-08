@@ -11,12 +11,33 @@ const constants = {
 export default class AddBook extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { text: constants.SEARCH_PLACEHOLDER };
+    this.state = {
+      search: constants.SEARCH_PLACEHOLDER,
+      data: [],
+      loading: false,
+      error: null,
+    };
   }
 
   searchBooks = () => {
-    // TODO: implement this to display results
-    alert(this.state.text);
+    this.setState({ loading: true });
+
+    const q = encodeURI(this.state.search);
+    const apiKey = '';  // TODO: fill api key
+    const url = `https://www.googleapis.com/books/v1/volumes?q=${q}&key=${apiKey}`;
+
+    fetch(url)
+      .then(res => res.json())
+      .then(json => {
+        this.setState({
+          data: json,
+          error: json.error || null,
+          loading: false,
+        });
+      })
+      .catch(error => {
+        this.setState({ error, loading: false });
+      });
   };
 
   render() {
@@ -26,11 +47,11 @@ export default class AddBook extends React.Component {
         <TextInput
           style={styles.searchBox}
           onFocus={() => {
-              this.setState({ text: '' });
+              this.setState({ search: '' });
             }
           }
-          onChangeText={text => this.setState({ text })}
-          value={this.state.text}
+          onChangeText={search => this.setState({ search })}
+          value={this.state.search}
         />
         <Button
           onPress={this.searchBooks}
