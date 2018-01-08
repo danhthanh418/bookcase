@@ -54,6 +54,7 @@ export default class BooksList extends React.Component {
     const json = [
       {
         "id": 1,
+        coverUri: "http://books.google.com/books/content?id=wgg7DwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
         "title": "Learning React Native",
         "authors": [
             "Bonnie Eisenman"
@@ -64,6 +65,7 @@ export default class BooksList extends React.Component {
       },
       {
         "id": 2,
+        coverUri: "https://www.bookshare.org/cms/sites/default/files/styles/panopoly_image_original/public/460.png?itok=hObwtU4o",
         "title": "Two Scoops of Django 1.11",
         "authors": [
             "Audrey Roy Greenfeld",
@@ -75,6 +77,7 @@ export default class BooksList extends React.Component {
       },
       {
         "id": 3,
+        coverUri: "http://books.google.com/books/content?id=_i6bDeoCQzsC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
         "title": "Clean Code",
         "authors": [
             "Robert C. Martin",
@@ -86,6 +89,7 @@ export default class BooksList extends React.Component {
       },
       {
         "id": 4,
+        coverUri: "http://books.google.com/books/content?id=bRpYDgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
         "title": "Hands-On Machine Learning with Scikit-Learn and TensorFlow",
         "authors": [
             "Aurélien Géron"
@@ -108,7 +112,7 @@ export default class BooksList extends React.Component {
       })}
       avatar={
         <Avatar
-          source={{}}
+          source={{uri: `${item.coverUri}`}}
           containerStyle={{ marginBottom: 2 }}
           avatarStyle={{ resizeMode: 'cover' }}
           width={80}
