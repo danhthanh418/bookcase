@@ -17,7 +17,7 @@ export default class BooksList extends React.Component {
 
     this.state = {
       loading: false,
-      data: [],
+      data: props.initialData || [],
       error: null,
       refreshing: false,
       readingStatus: tabsReadingStatus[props.navigation.state.routeName],
@@ -134,14 +134,20 @@ export default class BooksList extends React.Component {
     />
   );
 
-  renderListHeaderComponent = () => (
-    <SearchBar
-      placeholder="Search among your books..."
-      onChangeText={(text) => this.setState({ searchText: text})}
-      onClearText={() => this.setState({ searchText: ''})}
-      lightTheme
-    />
-  );
+  renderListHeaderComponent = () => {
+    if (!this.props.showSearchBar) {
+      return <View />
+    } else {
+      return (
+        <SearchBar
+          placeholder="Search among your books..."
+          onChangeText={(text) => this.setState({ searchText: text})}
+          onClearText={() => this.setState({ searchText: ''})}
+          lightTheme
+        />
+      )
+    }
+  }
 
   filterData = (query, data) => {
     const searchText = this.getNormalizedString(query);
@@ -214,3 +220,7 @@ export default class BooksList extends React.Component {
     }
   }
 }
+
+BooksList.defaultProps = {
+  showSearchBar: true,
+};
