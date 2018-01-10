@@ -1,6 +1,7 @@
 import React from 'react';
-import { FlatList, Text, View } from 'react-native';
+import { FlatList, Text, TouchableHighlight, TouchableOpacity, View } from 'react-native';
 import { Avatar, ListItem, SearchBar } from 'react-native-elements';
+import { SwipeListView } from 'react-native-swipe-list-view';
 import styles from './styles';
 
 
@@ -53,6 +54,7 @@ export default class BooksList extends React.Component {
     this.setState({ loading: false, error: false });
     const json = [
       {
+        "key": 1,
         "id": 1,
         coverUri: "http://books.google.com/books/content?id=wgg7DwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
         "title": "Learning React Native",
@@ -64,6 +66,7 @@ export default class BooksList extends React.Component {
         "reading_status": 0
       },
       {
+        "key": 2,
         "id": 2,
         coverUri: "https://www.bookshare.org/cms/sites/default/files/styles/panopoly_image_original/public/460.png?itok=hObwtU4o",
         "title": "Two Scoops of Django 1.11",
@@ -76,6 +79,7 @@ export default class BooksList extends React.Component {
         "reading_status": 2
       },
       {
+        "key": 3,
         "id": 3,
         coverUri: "http://books.google.com/books/content?id=_i6bDeoCQzsC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
         "title": "Clean Code",
@@ -88,6 +92,7 @@ export default class BooksList extends React.Component {
         "reading_status": 2
       },
       {
+        "key": 4,
         "id": 4,
         coverUri: "http://books.google.com/books/content?id=bRpYDgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
         "title": "Hands-On Machine Learning with Scikit-Learn and TensorFlow",
@@ -100,6 +105,20 @@ export default class BooksList extends React.Component {
       },
     ]
     this.setState({ data: json });
+  };
+
+  closeRow = (rowMap, rowKey) => {
+    if (rowMap[rowKey]) {
+      rowMap[rowKey].closeRow();
+    }
+  };
+
+  deleteRow = (rowMap, rowKey) => {
+    this.closeRow(rowMap, rowKey);
+    const newData = [...this.state.listViewData];
+    const prevIndex = this.state.listViewData.findIndex(item => item.key === rowKey);
+    newData.splice(prevIndex, 1);
+    this.setState({listViewData: newData});
   };
 
   renderItem = ({item}) => (
@@ -122,19 +141,7 @@ export default class BooksList extends React.Component {
       title={`${item.title}`}
       subtitle={`${item.authors.join(', ')}`}
       titleStyle={{ fontSize: 16 }}
-      containerStyle={{ borderBottomWidth: 0, marginBottom: 20 }}
-    />
-  );
-
- renderItemSeparatorComponent = () => (
-    <View
-      style={{
-        height: 0.5,
-        width: '95%',
-        backgroundColor: '#CED0CE',
-        marginLeft: '5%',
-        marginBottom: '5%',
-      }}
+      containerStyle={styles.rowFront}
     />
   );
 
@@ -204,11 +211,19 @@ export default class BooksList extends React.Component {
     return (
       <View style={styles.container}>
         {searchBar}
-        <FlatList
+        <SwipeListView
+          useFlatList
           data={filteredData}
-          keyExtractor={(item, index) => item.id}
           renderItem={this.renderItem}
-          ItemSeparatorComponent={this.renderItemSeparatorComponent}
+          renderHiddenItem={ (data, rowMap) => (
+            <View style={styles.rowBack}>
+              <TouchableOpacity style={styles.deleteRightButton} onPress={ () => this.deleteRow(rowMap, data.item.key) }>
+                <Text style={styles.rightButtonText}>Delete</Text>
+              </TouchableOpacity>
+            </View>
+          )}
+          rightOpenValue={-75}
+          onRowDidOpen={this.onRowDidOpen}
         />
       </View>
     );
