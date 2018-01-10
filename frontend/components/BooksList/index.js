@@ -138,21 +138,6 @@ export default class BooksList extends React.Component {
     />
   );
 
-  renderListHeaderComponent = () => {
-    if (!this.props.showSearchBar) {
-      return <View />
-    } else {
-      return (
-        <SearchBar
-          placeholder="Search among your books..."
-          onChangeText={(text) => this.setState({ searchText: text})}
-          onClearText={() => this.setState({ searchText: ''})}
-          lightTheme
-        />
-      )
-    }
-  }
-
   filterData = (query, data) => {
     const searchText = this.getNormalizedString(query);
     const readingStatus = this.state.readingStatus;
@@ -198,20 +183,35 @@ export default class BooksList extends React.Component {
     return <Text>Loading error! Please try again.</Text>;
   };
 
+  getSearchBar = () => {
+    if (this.props.showSearchBar) {
+      return (
+        <SearchBar
+          placeholder="Search among your books..."
+          onChangeText={(text) => this.setState({ searchText: text})}
+          onClearText={() => this.setState({ searchText: ''})}
+          lightTheme
+        />
+      );
+    }
+  };
+
   renderList = () => {
     const filteredData = this.filterData(this.state.searchText, this.state.data);
     const filteredAndSortedData = this.sortData(filteredData);
+    const searchBar = this.getSearchBar();
+
     return (
       <View style={styles.container}>
+        {searchBar}
         <FlatList
           data={filteredData}
           keyExtractor={(item, index) => item.id}
           renderItem={this.renderItem}
           ItemSeparatorComponent={this.renderItemSeparatorComponent}
-          ListHeaderComponent={this.renderListHeaderComponent}
         />
       </View>
-    );    
+    );
   };
 
   render() {
