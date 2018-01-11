@@ -115,10 +115,11 @@ export default class BooksList extends React.Component {
 
   deleteRow = (rowMap, rowKey) => {
     this.closeRow(rowMap, rowKey);
-    const newData = [...this.state.listViewData];
-    const prevIndex = this.state.listViewData.findIndex(item => item.key === rowKey);
+    const newData = [...this.state.data];
+    const prevIndex = this.state.data.findIndex(item => item.key === rowKey);
     newData.splice(prevIndex, 1);
-    this.setState({listViewData: newData});
+    // TODO: delete data from Async Storage
+    this.setState({data: newData});
   };
 
   renderItem = ({item}) => (
