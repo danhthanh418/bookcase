@@ -12,15 +12,15 @@ export default class BookDetails extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: props.navigation.state.params.id,
+      key: props.navigation.state.params.key,
       notes: constants.NOTES_PLACEHOLDER,
       readingStatus: props.navigation.state.params.readingStatus,
     };
   }
 
   componentDidMount() {
-    this.fetchData(`@Bookcase:${this.state.id}.notes`, 'notes');
-    this.fetchData(`@Bookcase:${this.state.id}.readingStatus`, 'readingStatus');
+    this.fetchData(`@Bookcase:${this.state.key}.notes`, 'notes');
+    this.fetchData(`@Bookcase:${this.state.key}.readingStatus`, 'readingStatus');
   }
 
   fetchData = async (storeKey, stateKey) => {
@@ -56,7 +56,7 @@ export default class BookDetails extends React.Component {
               }
             }
           }
-          onChangeText={notes => this.setData(`@Bookcase:${this.state.id}.notes`, 'notes', notes)}
+          onChangeText={notes => this.setData(`@Bookcase:${this.state.key}.notes`, 'notes', notes)}
           value={this.state.notes}
           multiline
           numberOfLines={11}
@@ -64,7 +64,7 @@ export default class BookDetails extends React.Component {
         <Text style={styles.header}>STATUS</Text>
         <Picker
           selectedValue={this.state.readingStatus}
-          onValueChange={itemValue => this.setData(`@Bookcase:${this.state.id}.readingStatus`, 'readingStatus', itemValue.toString())}
+          onValueChange={itemValue => this.setData(`@Bookcase:${this.state.key}.readingStatus`, 'readingStatus', itemValue.toString())}
         >
           <Picker.Item label="Unstarted" value="0" />
           <Picker.Item label="Started" value="1" />

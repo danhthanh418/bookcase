@@ -55,7 +55,6 @@ export default class BooksList extends React.Component {
     const json = [
       {
         "key": 1,
-        "id": 1,
         coverUri: "http://books.google.com/books/content?id=wgg7DwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
         "title": "Learning React Native",
         "authors": [
@@ -67,7 +66,6 @@ export default class BooksList extends React.Component {
       },
       {
         "key": 2,
-        "id": 2,
         coverUri: "https://www.bookshare.org/cms/sites/default/files/styles/panopoly_image_original/public/460.png?itok=hObwtU4o",
         "title": "Two Scoops of Django 1.11",
         "authors": [
@@ -80,7 +78,6 @@ export default class BooksList extends React.Component {
       },
       {
         "key": 3,
-        "id": 3,
         coverUri: "http://books.google.com/books/content?id=_i6bDeoCQzsC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
         "title": "Clean Code",
         "authors": [
@@ -93,7 +90,6 @@ export default class BooksList extends React.Component {
       },
       {
         "key": 4,
-        "id": 4,
         coverUri: "http://books.google.com/books/content?id=bRpYDgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
         "title": "Hands-On Machine Learning with Scikit-Learn and TensorFlow",
         "authors": [
@@ -125,7 +121,7 @@ export default class BooksList extends React.Component {
   renderItem = ({item}) => (
     <ListItem
       onPress={() => this.props.navigation.navigate('BookDetails', {
-        id: `${item.id}`,
+        key: `${item.key}`,
         title: `${item.title}`,
         notes: `${item.notes}`,
         readingStatus: `${item.reading_status.toString()}`
