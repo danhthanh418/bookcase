@@ -79,32 +79,21 @@ export default class BooksList extends React.Component {
   }
 
   componentDidMount() {
-    this.makeRemoteRequest();
+    this.fetchData();
   }
 
-  makeRemoteRequest = () => {
-    /*
-    TODO: uncomment and change the url
-
-    const url = 'https://jsonplaceholder.typicode.com/albums';
-    this.setState({ loading: true });
-    fetch(url)
-      .then(res => res.json())
-      .then(json => {
-        this.setState({
-          data: json,
-          error: json.error || null,
-          loading: false,
-          refreshing: false
-        });
-      })
-      .catch(error => {
-        this.setState({ error, loading: false });
-      });
-      */
-
-    this.setState({ loading: false, error: false });
-    this.setState({ data: json });
+  fetchData = async () => {
+    try {
+      this.setState({ loading: true });
+      let books = await AsyncStorage.getItem('@Bookcase:books');
+      if (books !== null) {
+        books = JSON.parse(books);
+        books = books.filter((book) => book.readingStatus === this.state.readingStatus);
+        this.setState({ data: books, loading: false });
+      }
+    } catch (error) {
+      this.setState({ error, loading: false });
+    }
   };
 
   closeRow = (rowMap, rowKey) => {

@@ -44,7 +44,7 @@ export default class BookDetails extends React.Component {
 
   setData = (notes, readingStatus) => {
     try {
-      this.setState({ notes: notes, readingStatus: readingStatus }, async () => {
+      this.setState({ notes, readingStatus }, async () => {
         let books = await AsyncStorage.getItem('@Bookcase:books');
         if (books !== null) {
           books = JSON.parse(books);
