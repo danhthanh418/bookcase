@@ -1,2 +1,2 @@
 # [WIP] bookcase 📚 🤓
-A reading list app created with django and react native.
+A reading list app created with react native.
