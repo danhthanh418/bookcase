@@ -7,6 +7,13 @@ export default StyleSheet.create({
     marginTop: 30,
     marginBottom: 30,
   },
+  error: {
+    color: 'red',
+    textAlign: 'center',
+    fontSize: 20,
+    marginTop: 30,
+    marginBottom: 30,
+  },
   searchBox: {
     textAlignVertical: 'center',
     backgroundColor: 'white',

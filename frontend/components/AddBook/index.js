@@ -20,6 +20,10 @@ export default class AddBook extends React.Component {
   }
 
   searchBooks = () => {
+    if (!this.state.search || this.state.search === constants.SEARCH_PLACEHOLDER) {
+      return;
+    }
+
     this.setState({ loading: true });
 
     const q = encodeURI(this.state.search);
@@ -34,16 +38,29 @@ export default class AddBook extends React.Component {
           error: json.error || null,
           loading: false,
         });
+
+        // TODO: clean the json data here
+
+        this.props.navigation.navigate('BooksList', {
+          data: json,
+          filterData: false
+        });
       })
       .catch(error => {
         this.setState({ error, loading: false });
       });
   };
 
-  render() {
+  renderLoading = () => {
+    // TODO: use a spinner instead
+    return <Text>Loading...</Text>;
+  };
+
+  renderAddBook = () => {
     return (
       <View>
         <Text style={styles.headline}>Let’s add a book</Text>
+        {this.state.error && <Text style={styles.error}>Loading error! Please try again.</Text>}
         <TextInput
           style={styles.searchBox}
           onFocus={() => {
@@ -61,5 +78,13 @@ export default class AddBook extends React.Component {
         />
       </View>
     );
+  };
+
+  render() {
+    if (this.state.loading) {
+      return this.renderLoading();
+    } else {
+      return this.renderAddBook();
+    }
   }
 }

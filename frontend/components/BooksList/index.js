@@ -79,7 +79,11 @@ export default class BooksList extends React.Component {
   }
 
   componentDidMount() {
-    this.fetchData();
+    if (this.props.navigation.state.params && this.props.navigation.state.params.data) {
+      this.setState({ data: this.props.navigation.state.params.data });
+    } else {
+      this.fetchData();
+    }
   }
 
   fetchData = async () => {
@@ -205,8 +209,13 @@ export default class BooksList extends React.Component {
   };
 
   renderList = () => {
-    const filteredData = this.filterData(this.state.searchText, this.state.data);
-    const filteredAndSortedData = this.sortData(filteredData);
+    let data;
+    if (this.props.navigation.state.params && !this.props.navigation.state.params.filterData) {
+      data = this.state.data;
+      // data = this.sortData(data);
+    } else {
+      data = this.filterData(this.state.searchText, this.state.data);
+    }
     const searchBar = this.getSearchBar();
 
     return (
@@ -214,7 +223,7 @@ export default class BooksList extends React.Component {
         {searchBar}
         <SwipeListView
           useFlatList
-          data={filteredData}
+          data={data}
           renderItem={this.renderItem}
           renderHiddenItem={ (data, rowMap) => (
             <View style={styles.rowBack}>
