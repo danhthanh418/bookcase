@@ -19,28 +19,48 @@ export default class BookDetails extends React.Component {
   }
 
   componentDidMount() {
-    this.fetchData(`@Bookcase:${this.state.key}.notes`, 'notes');
-    this.fetchData(`@Bookcase:${this.state.key}.readingStatus`, 'readingStatus');
+    this.fetchData();
   }
 
-  fetchData = async (storeKey, stateKey) => {
+  fetchData = async () => {
+    // FIXME: this should be probably handled through nav params or props
     try {
-      const value = await AsyncStorage.getItem(storeKey);
-      if (value !== null) {
-        this.setState({ [stateKey]: value });
+      // TODO: handle loading state
+      let books = await AsyncStorage.getItem('@Bookcase:books');
+      if (books !== null) {
+        books = JSON.parse(books);
+        const book = books.find((item) => {
+          return item.key === this.state.key;
+        });
+        this.setState({
+          notes: book.notes || constants.NOTES_PLACEHOLDER,
+          readingStatus: book.readingStatus
+        });
       }
     } catch (error) {
       // TODO: error retrieving data, do something
     }
   };
 
-  setData = (storeKey, stateKey, value) => {
+  setData = (notes, readingStatus) => {
     try {
-      this.setState({ [stateKey]: value }, async () => {
-        await AsyncStorage.setItem(storeKey, value);
+      this.setState({ notes: notes, readingStatus: readingStatus }, async () => {
+        let books = await AsyncStorage.getItem('@Bookcase:books');
+        if (books !== null) {
+          books = JSON.parse(books);
+          for (let book of books) {
+            if (book.key === this.state.key) {
+              book.notes = notes;
+              book.readingStatus = readingStatus;
+              break;
+            }
+          }
+          await AsyncStorage.setItem('@Bookcase:books', JSON.stringify(books));
+        }
       });
     } catch (error) {
       // TODO: error saving data, do something
+      alert(error);
     }
   };
 
@@ -56,7 +76,7 @@ export default class BookDetails extends React.Component {
               }
             }
           }
-          onChangeText={notes => this.setData(`@Bookcase:${this.state.key}.notes`, 'notes', notes)}
+          onChangeText={notes => this.setData(notes, this.state.readingStatus)}
           value={this.state.notes}
           multiline
           numberOfLines={11}
@@ -64,7 +84,7 @@ export default class BookDetails extends React.Component {
         <Text style={styles.header}>STATUS</Text>
         <Picker
           selectedValue={this.state.readingStatus}
-          onValueChange={itemValue => this.setData(`@Bookcase:${this.state.key}.readingStatus`, 'readingStatus', itemValue.toString())}
+          onValueChange={itemValue => this.setData(this.state.notes, itemValue.toString())}
         >
           <Picker.Item label="Unstarted" value="0" />
           <Picker.Item label="Started" value="1" />

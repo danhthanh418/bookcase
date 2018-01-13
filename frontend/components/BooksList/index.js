@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, Text, TouchableHighlight, TouchableOpacity, View } from 'react-native';
+import { AsyncStorage, FlatList, Text, TouchableHighlight, TouchableOpacity, View } from 'react-native';
 import { Avatar, ListItem, SearchBar } from 'react-native-elements';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import styles from './styles';
@@ -12,9 +12,61 @@ const tabsReadingStatus = {
   BookShelfTab: '2'
 };
 
+const json = [
+  {
+    "key": "1",
+    "coverUri": "http://books.google.com/books/content?id=wgg7DwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+    "title": "Learning React Native",
+    "authors": [
+        "Bonnie Eisenman"
+    ],
+    "notes": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.",
+    "rating": null,
+    "readingStatus": '0'
+  },
+  {
+    "key": "2",
+    "coverUri": "https://www.bookshare.org/cms/sites/default/files/styles/panopoly_image_original/public/460.png?itok=hObwtU4o",
+    "title": "Two Scoops of Django 1.11",
+    "authors": [
+        "Audrey Roy Greenfeld",
+        "Daniel Roy Greenfeld"
+    ],
+    "notes": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.",
+    "rating": null,
+    "readingStatus": '2'
+  },
+  {
+    "key": "3",
+    "coverUri": "http://books.google.com/books/content?id=_i6bDeoCQzsC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+    "title": "Clean Code",
+    "authors": [
+        "Robert C. Martin",
+        "Dean Wampler"
+    ],
+    "notes": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.",
+    "rating": 5,
+    "readingStatus": '2'
+  },
+  {
+    "key": "4",
+    "coverUri": "http://books.google.com/books/content?id=bRpYDgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+    "title": "Hands-On Machine Learning with Scikit-Learn and TensorFlow",
+    "authors": [
+        "Aurélien Géron"
+    ],
+    "notes": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.",
+    "rating": null,
+    "readingStatus": '1'
+  },
+];
+
 export default class BooksList extends React.Component {
   constructor(props) {
     super(props);
+
+    // TODO: remove this line, just there for testing with initial data
+    AsyncStorage.setItem('@Bookcase:books', JSON.stringify(json));
 
     this.state = {
       loading: false,
@@ -52,54 +104,6 @@ export default class BooksList extends React.Component {
       */
 
     this.setState({ loading: false, error: false });
-    const json = [
-      {
-        "key": 1,
-        coverUri: "http://books.google.com/books/content?id=wgg7DwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-        "title": "Learning React Native",
-        "authors": [
-            "Bonnie Eisenman"
-        ],
-        "notes": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.",
-        "rating": null,
-        "reading_status": '0'
-      },
-      {
-        "key": 2,
-        coverUri: "https://www.bookshare.org/cms/sites/default/files/styles/panopoly_image_original/public/460.png?itok=hObwtU4o",
-        "title": "Two Scoops of Django 1.11",
-        "authors": [
-            "Audrey Roy Greenfeld",
-            "Daniel Roy Greenfeld"
-        ],
-        "notes": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.",
-        "rating": null,
-        "reading_status": '2'
-      },
-      {
-        "key": 3,
-        coverUri: "http://books.google.com/books/content?id=_i6bDeoCQzsC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-        "title": "Clean Code",
-        "authors": [
-            "Robert C. Martin",
-            "Dean Wampler"
-        ],
-        "notes": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.",
-        "rating": 5,
-        "reading_status": '2'
-      },
-      {
-        "key": 4,
-        coverUri: "http://books.google.com/books/content?id=bRpYDgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-        "title": "Hands-On Machine Learning with Scikit-Learn and TensorFlow",
-        "authors": [
-            "Aurélien Géron"
-        ],
-        "notes": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.",
-        "rating": null,
-        "reading_status": '1'
-      },
-    ]
     this.setState({ data: json });
   };
 
@@ -124,7 +128,7 @@ export default class BooksList extends React.Component {
         key: `${item.key}`,
         title: `${item.title}`,
         notes: `${item.notes}`,
-        readingStatus: `${item.reading_status.toString()}`
+        readingStatus: `${item.readingStatus.toString()}`
       })}
       avatar={
         <Avatar
@@ -145,7 +149,7 @@ export default class BooksList extends React.Component {
   filterData = (query, data) => {
     const searchText = this.getNormalizedString(query);
     const readingStatus = this.state.readingStatus;
-    const dataInTabs = data.filter(item => item.reading_status === readingStatus);
+    const dataInTabs = data.filter(item => item.readingStatus === readingStatus);
 
     if (!searchText) {
       return dataInTabs;
