@@ -7,9 +7,9 @@ import styles from './styles';
 
 // maps the tabs and their reading status
 const tabsReadingStatus = {
-  WishListTab: 0,
-  ReadingTab: 1,
-  BookShelfTab: 2
+  WishListTab: '0',
+  ReadingTab: '1',
+  BookShelfTab: '2'
 };
 
 export default class BooksList extends React.Component {
@@ -63,7 +63,7 @@ export default class BooksList extends React.Component {
         ],
         "notes": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.",
         "rating": null,
-        "reading_status": 0
+        "reading_status": '0'
       },
       {
         "key": 2,
@@ -76,7 +76,7 @@ export default class BooksList extends React.Component {
         ],
         "notes": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.",
         "rating": null,
-        "reading_status": 2
+        "reading_status": '2'
       },
       {
         "key": 3,
@@ -89,7 +89,7 @@ export default class BooksList extends React.Component {
         ],
         "notes": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.",
         "rating": 5,
-        "reading_status": 2
+        "reading_status": '2'
       },
       {
         "key": 4,
@@ -101,7 +101,7 @@ export default class BooksList extends React.Component {
         ],
         "notes": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.",
         "rating": null,
-        "reading_status": 1
+        "reading_status": '1'
       },
     ]
     this.setState({ data: json });

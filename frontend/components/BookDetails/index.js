@@ -64,7 +64,7 @@ export default class BookDetails extends React.Component {
         <Text style={styles.header}>STATUS</Text>
         <Picker
           selectedValue={this.state.readingStatus}
-          onValueChange={itemValue => this.setData(`@Bookcase:${this.state.id}.readingStatus`, 'readingStatus', itemValue)}
+          onValueChange={itemValue => this.setData(`@Bookcase:${this.state.id}.readingStatus`, 'readingStatus', itemValue.toString())}
         >
           <Picker.Item label="Unstarted" value="0" />
           <Picker.Item label="Started" value="1" />
