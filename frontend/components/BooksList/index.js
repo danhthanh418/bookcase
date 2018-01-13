@@ -96,6 +96,10 @@ export default class BooksList extends React.Component {
     }
   };
 
+  refreshData = (data) => {
+    this.setState({ data });
+  };
+
   closeRow = (rowMap, rowKey) => {
     if (rowMap[rowKey]) {
       rowMap[rowKey].closeRow();
@@ -117,7 +121,8 @@ export default class BooksList extends React.Component {
         key: `${item.key}`,
         title: `${item.title}`,
         notes: `${item.notes}`,
-        readingStatus: `${item.readingStatus.toString()}`
+        readingStatus: `${item.readingStatus.toString()}`,
+        refreshData: this.refreshData
       })}
       avatar={
         <Avatar
