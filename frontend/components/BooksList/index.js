@@ -111,8 +111,14 @@ export default class BooksList extends React.Component {
     const newData = [...this.state.data];
     const prevIndex = this.state.data.findIndex(item => item.key === rowKey);
     newData.splice(prevIndex, 1);
-    // TODO: delete data from Async Storage
-    this.setState({data: newData});
+    try {
+      this.setState({data: newData}, async () => {
+        await AsyncStorage.setItem('@Bookcase:books', JSON.stringify(newData));
+      });
+    } catch (error) {
+      // TODO: error saving data, do something
+      alert(error);
+    }
   };
 
   renderItem = ({item}) => (
