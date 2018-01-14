@@ -125,15 +125,49 @@ export default class BooksList extends React.Component {
     }
   };
 
+  addRow = async (item) => {
+    // TODO: add at specific position
+    try {
+      this.setState({ loading: true });
+      let books = await AsyncStorage.getItem('@Bookcase:books');
+      if (books !== null) {
+        books = JSON.parse(books);
+        const maxKey = Math.max(...books.map(o => o.key));
+        item.key = (maxKey + 1).toString();
+        const readingStatus = tabsReadingStatus[this.props.navigation.state.params.readingStatus];
+        item.readingStatus = readingStatus;
+        let filteredBooks = books.filter((book) => book.readingStatus === readingStatus);
+        filteredBooks.push(item);
+        books.push(item);
+        try {
+          this.setState({data: filteredBooks, loading: false}, async () => {
+            await AsyncStorage.setItem('@Bookcase:books', JSON.stringify(books));
+          });
+        } catch (error) {
+          // TODO: error saving data, do something
+          alert(error);
+        }
+      }
+    } catch (error) {
+      this.setState({ error, loading: false });
+    }
+  };
+
   renderItem = ({item}) => (
     <ListItem
-      onPress={() => this.props.navigation.navigate('BookDetails', {
-        key: `${item.key}`,
-        title: `${item.title}`,
-        notes: `${item.notes}`,
-        readingStatus: `${item.readingStatus.toString()}`,
-        refreshData: this.refreshData
-      })}
+      onPress={() => {
+        if (this.props.navigation.state.params && this.props.navigation.state.params.searchResults) {
+          this.addRow(item);
+        } else {
+          this.props.navigation.navigate('BookDetails', {
+            key: `${item.key}`,
+            title: `${item.title}`,
+            notes: `${item.notes}`,
+            readingStatus: `${item.readingStatus.toString()}`,
+            refreshData: this.refreshData
+          })}
+        }
+      }
       avatar={
         <Avatar
           source={{uri: `${item.coverUri}`}}

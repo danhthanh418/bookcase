@@ -6,6 +6,7 @@ import styles from './styles';
 
 const constants = {
   SEARCH_PLACEHOLDER: 'Type your book title...',
+  MAX_SEARCH_RESULTS: 20
 };
 
 export default class AddBook extends React.Component {
@@ -27,7 +28,7 @@ export default class AddBook extends React.Component {
     this.setState({ loading: true });
 
     const q = encodeURI(this.state.search);
-    const apiKey = '';
+    const apiKey = 'AIzaSyBc8kuSGIGTNpGt6MIjkvMERNHGF-fedjU';
     const url = `https://www.googleapis.com/books/v1/volumes?q=${q}&key=${apiKey}`;
 
     fetch(url)
@@ -43,7 +44,9 @@ export default class AddBook extends React.Component {
         this.props.navigation.navigate('BooksList', {
           data: books,
           filterData: false,
-          showSearchBar: false
+          showSearchBar: false,
+          searchResults: true,
+          readingStatus: this.props.navigation.state.params.readingStatus,
         });
       })
       .catch(error => {
@@ -62,11 +65,14 @@ export default class AddBook extends React.Component {
           key: key,
           title: volumeInfo["title"],
           authors: volumeInfo["authors"],
-          "coverUri": volumeInfo["imageLinks"]["thumbnail"]
+          coverUri: volumeInfo["imageLinks"]["thumbnail"],
+          "notes": "",
+          "rating": null,
+          readingStatus: this.props.navigation.state.params.readingStatus,
         };
         books.push(book);
         key += 1;
-        if (key > 10) {
+        if (key > constants.MAX_SEARCH_RESULTS) {
           break;
         }
       }
