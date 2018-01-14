@@ -196,7 +196,7 @@ export default class BooksList extends React.Component {
   };
 
   getSearchBar = () => {
-    if (this.props.showSearchBar) {
+    if (!this.props.navigation.state.params || (this.props.navigation.state.params && this.props.navigation.state.params.filterData)) {
       return (
         <SearchBar
           placeholder="Search among your books..."
@@ -249,7 +249,3 @@ export default class BooksList extends React.Component {
     }
   }
 }
-
-BooksList.defaultProps = {
-  showSearchBar: true,
-};

@@ -27,7 +27,7 @@ export default class AddBook extends React.Component {
     this.setState({ loading: true });
 
     const q = encodeURI(this.state.search);
-    const apiKey = '';  // TODO: fill api key
+    const apiKey = '';
     const url = `https://www.googleapis.com/books/v1/volumes?q=${q}&key=${apiKey}`;
 
     fetch(url)
@@ -39,16 +39,40 @@ export default class AddBook extends React.Component {
           loading: false,
         });
 
-        // TODO: clean the json data here
-
+        const books = this.getBooks(json);
         this.props.navigation.navigate('BooksList', {
-          data: json,
-          filterData: false
+          data: books,
+          filterData: false,
+          showSearchBar: false
         });
       })
       .catch(error => {
         this.setState({ error, loading: false });
+        alert(error);
       });
+  };
+
+  getBooks = (json) => {
+    let books = [];
+    let key = 1;
+    for (let item of json["items"]) {
+      if (item["kind"] === "books#volume") {
+        const volumeInfo = item["volumeInfo"];
+        let book = {
+          key: key,
+          title: volumeInfo["title"],
+          authors: volumeInfo["authors"],
+          "coverUri": volumeInfo["imageLinks"]["thumbnail"]
+        };
+        books.push(book);
+        key += 1;
+        if (key > 10) {
+          break;
+        }
+      }
+    }
+
+    return books;
   };
 
   renderLoading = () => {
