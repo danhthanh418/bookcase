@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, TextInput, View } from 'react-native';
+import { ActivityIndicator, Text, TextInput, View } from 'react-native';
 import { Button } from 'react-native-elements';
 import styles from './styles';
 
@@ -82,8 +82,7 @@ export default class AddBook extends React.Component {
   };
 
   renderLoading = () => {
-    // TODO: use a spinner instead
-    return <Text>Loading...</Text>;
+    return <ActivityIndicator size="large" style={[styles.container, styles.horizontal]} color="#00A885" />
   };
 
   renderAddBook = () => {

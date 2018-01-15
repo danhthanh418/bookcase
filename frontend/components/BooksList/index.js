@@ -1,5 +1,5 @@
 import React from 'react';
-import { AsyncStorage, FlatList, Text, TouchableHighlight, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, AsyncStorage, FlatList, Text, TouchableHighlight, TouchableOpacity, View } from 'react-native';
 import { Avatar, ListItem, SearchBar } from 'react-native-elements';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import styles from './styles';
@@ -220,8 +220,7 @@ export default class BooksList extends React.Component {
   };
 
   renderLoading = () => {
-    // TODO: use a spinner instead
-    return <Text>Loading...</Text>;
+    return <ActivityIndicator size="large" style={[styles.activityIndicatorContainer, styles.horizontal]} color="#00A885" />;
   };
 
   renderError = () => {
