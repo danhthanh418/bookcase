@@ -6,7 +6,8 @@ import styles from './styles';
 
 const constants = {
   SEARCH_PLACEHOLDER: 'Type your book title...',
-  MAX_SEARCH_RESULTS: 20
+  MAX_SEARCH_RESULTS: 20,
+  PLACEHOLDER_COVER_URI: 'https://www.bookshare.org/cms/sites/default/files/styles/panopoly_image_original/public/460.png?itok=hObwtU4o',
 };
 
 export default class AddBook extends React.Component {
@@ -61,19 +62,27 @@ export default class AddBook extends React.Component {
     for (let item of json["items"]) {
       if (item["kind"] === "books#volume") {
         const volumeInfo = item["volumeInfo"];
-        let book = {
-          key: key,
-          title: volumeInfo["title"],
-          authors: volumeInfo["authors"],
-          coverUri: volumeInfo["imageLinks"]["thumbnail"],
-          "notes": "",
-          "rating": null,
-          readingStatus: this.props.navigation.state.params.readingStatus,
-        };
-        books.push(book);
-        key += 1;
-        if (key > constants.MAX_SEARCH_RESULTS) {
-          break;
+
+        if (volumeInfo["title"] && volumeInfo["authors"]) {
+          let coverUri = constants.PLACEHOLDER_COVER_URI;
+          if (volumeInfo["imageLinks"] && volumeInfo["imageLinks"]["thumbnail"]) {
+            coverUri = volumeInfo["imageLinks"]["thumbnail"];
+          }
+
+          let book = {
+            key: key,
+            title: volumeInfo["title"],
+            authors: volumeInfo["authors"],
+            coverUri: coverUri,
+            "notes": "",
+            "rating": null,
+            readingStatus: this.props.navigation.state.params.readingStatus,
+          };
+          books.push(book);
+          key += 1;
+          if (key > constants.MAX_SEARCH_RESULTS) {
+            break;
+          }
         }
       }
     }
