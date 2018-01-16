@@ -1,5 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, Image, View } from 'react-native';
+import styles from './styles';
 
 
 export default class AddButton extends React.Component {
@@ -15,11 +16,7 @@ export default class AddButton extends React.Component {
         >
           <Image
             source={require('./../../img/plus.png')}
-            style={{
-              marginLeft: 10,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
+            style={styles.headerLeft}
           />
         </TouchableOpacity>
       </View>
