@@ -15,7 +15,7 @@ export default class AddBook extends React.Component {
     super(props);
     this.state = {
       search: constants.SEARCH_PLACEHOLDER,
-      data: [],
+      searchResults: [],
       loading: false,
       error: null,
     };
@@ -36,14 +36,14 @@ export default class AddBook extends React.Component {
       .then(res => res.json())
       .then(json => {
         this.setState({
-          data: json,
+          searchResults: json,
           error: json.error || null,
           loading: false,
         });
 
         const books = this.getBooks(json);
         this.props.navigation.navigate('BooksList', {
-          data: books,
+          searchResults: books,
           filterData: false,
           showSearchBar: false,
           searchResults: true,
