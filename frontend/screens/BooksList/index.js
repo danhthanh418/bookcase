@@ -61,7 +61,7 @@ export default class BooksList extends React.Component {
   constructor(props) {
     super(props);
 
-    // TODO: remove this line, just there for testing with initial data
+    // NOTE: remove this line to get rid of the initial data
     AsyncStorage.setItem('@Bookcase:books', JSON.stringify(initialData));
 
     this.state = {
@@ -82,6 +82,9 @@ export default class BooksList extends React.Component {
     }
   }
 
+  /**
+   * Fetches the data (books) from async storage and populates state.
+   */
   fetchData = async () => {
     try {
       this.setState({ loading: true });
@@ -98,27 +101,6 @@ export default class BooksList extends React.Component {
 
   refreshData = (data) => {
     this.setState({ data });
-  };
-
-  closeRow = (rowMap, rowKey) => {
-    if (rowMap[rowKey]) {
-      rowMap[rowKey].closeRow();
-    }
-  };
-
-  deleteRow = (rowMap, rowKey) => {
-    this.closeRow(rowMap, rowKey);
-    const newData = [...this.state.data];
-    const prevIndex = this.state.data.findIndex(item => item.key === rowKey);
-    newData.splice(prevIndex, 1);
-    try {
-      this.setState({data: newData}, async () => {
-        await AsyncStorage.setItem('@Bookcase:books', JSON.stringify(newData));
-      });
-    } catch (error) {
-      // TODO: error saving data, do something
-      alert(error);
-    }
   };
 
   addRow = async (item) => {
@@ -146,6 +128,36 @@ export default class BooksList extends React.Component {
       }
     } catch (error) {
       this.setState({ error, loading: false });
+    }
+  };
+
+  /**
+   * Removes the row from the list and deletes its data from the state
+   * and from async storage.
+   */
+  deleteRow = (rowMap, rowKey) => {
+    this._closeRow(rowMap, rowKey);
+
+    const newData = [...this.state.data];
+    const prevIndex = this.state.data.findIndex(item => item.key === rowKey);
+    newData.splice(prevIndex, 1);
+
+    try {
+      this.setState({data: newData}, async () => {
+        await AsyncStorage.setItem('@Bookcase:books', JSON.stringify(newData));
+      });
+    } catch (error) {
+      // TODO: error saving data, do something
+      alert(error);
+    }
+  };
+
+  /**
+   * Closes the row, i.e., removes it from the list.
+   */
+  _closeRow = (rowMap, rowKey) => {
+    if (rowMap[rowKey]) {
+      rowMap[rowKey].closeRow();
     }
   };
 
@@ -180,34 +192,39 @@ export default class BooksList extends React.Component {
     />
   );
 
+  /**
+   * Filters the data (title and authors of the books) based on the query string.
+   */
   filterData = (query, data) => {
-    const searchText = this.getNormalizedString(query);
+    const searchText = this._getNormalizedString(query);
     const readingStatus = this.state.readingStatus;
-    const dataInTabs = data.filter(item => item.readingStatus === readingStatus);
 
     if (!searchText) {
-      return dataInTabs;
+      return data;
     }
 
-    return dataInTabs.filter(item => {
-      const title = this.getNormalizedString(item.title);
-      const authors = this.getNormalizedString(item.authors.join());
+    return data.filter(item => {
+      const title = this._getNormalizedString(item.title);
+      const authors = this._getNormalizedString(item.authors.join());
       return title.indexOf(searchText) !== -1 || authors.indexOf(searchText) !== -1;
     });
   };
 
-  getNormalizedString = (str) => {
+  _getNormalizedString = (str) => {
     return str.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLowerCase();
   };
 
-  sortData = (data) => {
+  /**
+   * Sorts the data in ascending order on parameter property prop.
+   */
+  sortData = (data, prop) => {
     return data.sort((a, b) => {
-      const titleA = this.getNormalizedString(a.title);
-      const titleB = this.getNormalizedString(b.title);
+      const propA = this._getNormalizedString(a[prop]);
+      const propB = this._getNormalizedString(b[prop]);
 
-      if (titleA < titleB) {
+      if (propA < propB) {
         return -1;
-      } else if (titleA > titleB) {
+      } else if (propA > propB) {
         return 1;
       }
 
@@ -215,10 +232,16 @@ export default class BooksList extends React.Component {
     });
   };
 
+  /**
+   * Renders the loading state.
+   */
   renderLoading = () => {
     return <ActivityIndicator size="large" style={[styles.activityIndicatorContainer, styles.horizontal]} color="#00A885" />;
   };
 
+  /**
+   * Renders the error state.
+   */
   renderError = () => {
     // TODO: add some style and a refresh button
     return <Text>Loading error! Please try again.</Text>;
@@ -244,13 +267,11 @@ export default class BooksList extends React.Component {
     } else {
       data = this.filterData(this.state.searchText, this.state.data);
     }
-    data = this.sortData(data);
-
-    const searchBar = this.getSearchBar();
+    data = this.sortData(data, 'title');
 
     return (
       <View style={styles.container}>
-        {searchBar}
+        {this.getSearchBar()}
         <SwipeListView
           useFlatList
           data={data}
