@@ -75,7 +75,6 @@ export default class AddBook extends React.Component {
             authors: volumeInfo["authors"],
             coverUri: coverUri,
             "notes": "",
-            "rating": null,
             readingStatus: this.props.navigation.state.params.readingStatus,
           };
           books.push(book);

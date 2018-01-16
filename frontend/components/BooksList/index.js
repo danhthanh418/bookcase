@@ -12,7 +12,7 @@ const tabsReadingStatus = {
   BookShelfTab: '2'
 };
 
-const json = [
+const initialData = [
   {
     "key": "1",
     "coverUri": "http://books.google.com/books/content?id=wgg7DwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
@@ -21,7 +21,6 @@ const json = [
         "Bonnie Eisenman"
     ],
     "notes": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.",
-    "rating": null,
     "readingStatus": '0'
   },
   {
@@ -33,7 +32,6 @@ const json = [
         "Daniel Roy Greenfeld"
     ],
     "notes": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.",
-    "rating": null,
     "readingStatus": '2'
   },
   {
@@ -45,7 +43,6 @@ const json = [
         "Dean Wampler"
     ],
     "notes": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.",
-    "rating": 5,
     "readingStatus": '2'
   },
   {
@@ -56,7 +53,6 @@ const json = [
         "Aurélien Géron"
     ],
     "notes": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.",
-    "rating": null,
     "readingStatus": '1'
   },
 ];
@@ -66,7 +62,7 @@ export default class BooksList extends React.Component {
     super(props);
 
     // TODO: remove this line, just there for testing with initial data
-    AsyncStorage.setItem('@Bookcase:books', JSON.stringify(json));
+    AsyncStorage.setItem('@Bookcase:books', JSON.stringify(initialData));
 
     this.state = {
       loading: false,
