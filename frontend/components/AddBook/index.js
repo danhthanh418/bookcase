@@ -10,6 +10,9 @@ const constants = {
   PLACEHOLDER_COVER_URI: 'https://www.bookshare.org/cms/sites/default/files/styles/panopoly_image_original/public/460.png?itok=hObwtU4o',
 };
 
+/**
+ * Renders the add book screen, essentially a search box and a submit button.
+ */
 export default class AddBook extends React.Component {
   constructor(props) {
     super(props);
@@ -21,6 +24,10 @@ export default class AddBook extends React.Component {
     };
   }
 
+  /**
+   * Searches Google books api for the searchText and navigates to
+   * a BookList if some results are found.
+   */
   searchBooks = () => {
     if (!this.state.search || this.state.search === constants.SEARCH_PLACEHOLDER) {
       return;
@@ -42,6 +49,9 @@ export default class AddBook extends React.Component {
         });
 
         const books = this.getBooks(json);
+
+        // TODO: if no book results, stay here and display a message
+
         this.props.navigation.navigate('BooksList', {
           searchResults: books,
           filterData: false,
@@ -56,6 +66,10 @@ export default class AddBook extends React.Component {
       });
   };
 
+  /**
+   * Parses the json blob returned by Google books api and returns
+   * an array of books objects.
+   */
   getBooks = (json) => {
     let books = [];
     let key = 1;

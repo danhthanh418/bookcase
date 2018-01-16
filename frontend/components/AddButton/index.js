@@ -2,7 +2,9 @@ import React from 'react';
 import { TouchableOpacity, Image, View } from 'react-native';
 import styles from './styles';
 
-
+/**
+ * A plus button detecting the current route on press.
+ */
 export default class AddButton extends React.Component {
   render() {
     return (
