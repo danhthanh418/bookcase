@@ -241,10 +241,11 @@ export default class BooksList extends React.Component {
     let data;
     if (this.props.navigation.state.params && !this.props.navigation.state.params.filterData) {
       data = this.state.data;
-      // data = this.sortData(data);
     } else {
       data = this.filterData(this.state.searchText, this.state.data);
     }
+    data = this.sortData(data);
+
     const searchBar = this.getSearchBar();
 
     return (
