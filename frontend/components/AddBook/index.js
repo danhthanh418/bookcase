@@ -18,7 +18,7 @@ export default class AddBook extends React.Component {
     super(props);
     this.state = {
       search: constants.SEARCH_PLACEHOLDER,
-      searchResults: [],
+      data: [],
       loading: false,
       error: null,
     };
@@ -43,7 +43,7 @@ export default class AddBook extends React.Component {
       .then(res => res.json())
       .then(json => {
         this.setState({
-          searchResults: json,
+          data: json,
           error: json.error || null,
           loading: false,
         });
@@ -53,7 +53,7 @@ export default class AddBook extends React.Component {
         // TODO: if no book results, stay here and display a message
 
         this.props.navigation.navigate('BooksList', {
-          searchResults: books,
+          data: books,
           filterData: false,
           showSearchBar: false,
           searchResults: true,
