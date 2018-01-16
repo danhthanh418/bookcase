@@ -1,10 +1,10 @@
 import React from 'react';
 import { Image } from 'react-native';
 import { StackNavigator, TabNavigator } from 'react-navigation';
-import AddBook from './components/AddBook';
+import AddBook from './screens/AddBook';
+import BooksList from './screens/BooksList';
+import BookDetails from './screens/BookDetails';
 import AddButton from './components/AddButton';
-import BooksList from './components/BooksList';
-import BookDetails from './components/BookDetails';
 
 
 const TabNav = TabNavigator(
