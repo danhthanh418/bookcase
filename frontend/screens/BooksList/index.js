@@ -2,6 +2,7 @@ import React from 'react';
 import { ActivityIndicator, AsyncStorage, FlatList, Text, TouchableHighlight, TouchableOpacity, View } from 'react-native';
 import { Avatar, ListItem, SearchBar } from 'react-native-elements';
 import { SwipeListView } from 'react-native-swipe-list-view';
+import Events from '../../events';
 import styles from './styles';
 
 
@@ -75,11 +76,17 @@ export default class BooksList extends React.Component {
   }
 
   componentDidMount() {
+    this.refreshEvent = Events.subscribe('BooksList', (data) => this.refreshData(data));
+
     if (this.props.navigation.state.params && this.props.navigation.state.params.data) {
       this.setState({ data: this.props.navigation.state.params.data });
     } else {
       this.fetchData();
     }
+  }
+
+  componentWillUnmount () {
+    this.refreshEvent.remove();
   }
 
   /**

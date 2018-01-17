@@ -1,5 +1,6 @@
 import React from 'react';
 import { AsyncStorage, Picker, Text, TextInput, View } from 'react-native';
+import Events from '../../events';
 import styles from './styles';
 
 
@@ -57,6 +58,7 @@ export default class BookDetails extends React.Component {
             }
           }
           await AsyncStorage.setItem('@Bookcase:books', JSON.stringify(books));
+          Events.publish('BooksList', books);
         }
       });
     } catch (error) {
