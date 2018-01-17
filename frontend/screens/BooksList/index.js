@@ -100,7 +100,8 @@ export default class BooksList extends React.Component {
   };
 
   refreshData = (data) => {
-    this.setState({ data });
+    let filteredData = data.filter((book) => book.readingStatus === this.state.readingStatus);
+    this.setState({ data: filteredData });
   };
 
   addRow = async (item) => {
