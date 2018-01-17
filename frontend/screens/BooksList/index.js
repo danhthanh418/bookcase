@@ -80,6 +80,9 @@ export default class BooksList extends React.Component {
 
     if (this.props.navigation.state.params && this.props.navigation.state.params.data) {
       this.setState({ data: this.props.navigation.state.params.data });
+    } else if (this.props.navigation.state.params && this.props.navigation.state.params.filterData) {
+      const data = this.props.navigation.state.params.filterData.filter((book) => book.readingStatus === this.state.readingStatus);
+      this.setState({ data });
     } else {
       this.fetchData();
     }
@@ -113,30 +116,33 @@ export default class BooksList extends React.Component {
 
   addRow = async (item) => {
     // TODO: add at specific position
-    try {
-      this.setState({ loading: true });
-      let books = await AsyncStorage.getItem('@Bookcase:books');
-      if (books !== null) {
-        books = JSON.parse(books);
-        const maxKey = Math.max(...books.map(o => o.key));
-        item.key = (maxKey + 1).toString();
-        const readingStatus = tabsReadingStatus[this.props.navigation.state.params.readingStatus];
-        item.readingStatus = readingStatus;
-        let filteredBooks = books.filter((book) => book.readingStatus === readingStatus);
-        filteredBooks.push(item);
-        books.push(item);
-        try {
-          this.setState({data: filteredBooks, loading: false}, async () => {
-            await AsyncStorage.setItem('@Bookcase:books', JSON.stringify(books));
-          });
-        } catch (error) {
-          // TODO: error saving data, do something
-          alert(error);
-        }
-      }
-    } catch (error) {
-      this.setState({ error, loading: false });
-    }
+    // try {
+    //   this.setState({ loading: true });
+    //   let books = await AsyncStorage.getItem('@Bookcase:books');
+    //   if (books !== null) {
+    //     books = JSON.parse(books);
+    //     const maxKey = Math.max(...books.map(o => o.key));
+    //     item.key = (maxKey + 1).toString();
+    //     const readingStatus = tabsReadingStatus[this.props.navigation.state.params.readingStatus];
+    //     item.readingStatus = readingStatus;
+    //     let filteredBooks = books.filter((book) => book.readingStatus === readingStatus);
+    //     filteredBooks.push(item);
+    //     books.push(item);
+    //     try {
+    //       this.setState({data: filteredBooks, loading: false}, async () => {
+    //         await AsyncStorage.setItem('@Bookcase:books', JSON.stringify(books));
+    //       });
+    //     } catch (error) {
+    //       // TODO: error saving data, do something
+    //       alert(error);
+    //     }
+    //   }
+    // } catch (error) {
+    //   this.setState({ error, loading: false });
+    // }
+    this.props.navigation.navigate('Congrats', {
+      item: item
+    });
   };
 
   /**
@@ -173,6 +179,7 @@ export default class BooksList extends React.Component {
     <ListItem
       onPress={() => {
         if (this.props.navigation.state.params && this.props.navigation.state.params.searchResults) {
+          item.readingStatus = tabsReadingStatus[this.props.navigation.state.params.readingStatus];
           this.addRow(item);
         } else {
           this.props.navigation.navigate('BookDetails', {

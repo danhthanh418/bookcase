@@ -4,6 +4,7 @@ import { StackNavigator, TabNavigator } from 'react-navigation';
 import AddBook from './screens/AddBook';
 import BooksList from './screens/BooksList';
 import BookDetails from './screens/BookDetails';
+import Congrats from './screens/Congrats';
 import AddButton from './components/AddButton';
 
 
@@ -94,6 +95,13 @@ export default StackNavigator({
     screen: AddBook,
     navigationOptions: {
       title: 'New Book',
+    },
+  },
+  Congrats: {
+    screen: Congrats,
+    navigationOptions: {
+      title: 'New Book',
+      headerLeft: null,
     },
   },
 });
