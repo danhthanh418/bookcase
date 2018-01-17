@@ -75,6 +75,10 @@ const TabNav = TabNavigator(
   },
 );
 
+/**
+ * Stack navigator over tab navigator, i.e., do not show the
+ * tabs when one level down or more in the stack.
+ */
 export default StackNavigator({
   Root: {
     screen: TabNav,

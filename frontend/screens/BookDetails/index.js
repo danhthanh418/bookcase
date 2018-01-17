@@ -23,6 +23,9 @@ export default class BookDetails extends React.Component {
     this.fetchData();
   }
 
+  /**
+   *
+   */
   fetchData = async () => {
     // FIXME: this should be probably handled through nav params or props
     try {
@@ -43,6 +46,9 @@ export default class BookDetails extends React.Component {
     }
   };
 
+  /**
+   *
+   */
   setData = (notes, readingStatus) => {
     try {
       this.setState({ notes, readingStatus }, async () => {

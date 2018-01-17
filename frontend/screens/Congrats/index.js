@@ -18,6 +18,9 @@ export default class Congrats extends React.Component {
     };
   }
 
+  /**
+   *
+   */
   redirectToRoute = async () => {
     try {
       this.setState({ loading: true });
@@ -52,10 +55,16 @@ export default class Congrats extends React.Component {
     }
   }
 
+  /**
+   *
+   */
   renderLoading = () => {
     return <ActivityIndicator size="large" style={[styles.activityIndicatorContainer, styles.horizontal]} color="#00A885" />;
   };
 
+  /**
+   *
+   */
   renderCongrats = () => {
     return (
       <View style={styles.container}>

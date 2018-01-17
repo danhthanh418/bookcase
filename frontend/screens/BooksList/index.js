@@ -58,6 +58,9 @@ const initialData = [
   },
 ];
 
+/**
+ *
+ */
 export default class BooksList extends React.Component {
   constructor(props) {
     super(props);
@@ -109,6 +112,9 @@ export default class BooksList extends React.Component {
     }
   };
 
+  /**
+   *
+   */
   refreshData = (data) => {
     let filteredData = data.filter((book) => book.readingStatus === this.state.readingStatus);
     this.setState({ data: filteredData });
@@ -175,6 +181,9 @@ export default class BooksList extends React.Component {
     }
   };
 
+  /**
+   *
+   */
   renderItem = ({item}) => (
     <ListItem
       onPress={() => {
@@ -262,6 +271,9 @@ export default class BooksList extends React.Component {
     return <Text>Loading error! Please try again.</Text>;
   };
 
+  /**
+   *
+   */
   getSearchBar = () => {
     if (!this.props.navigation.state.params || (this.props.navigation.state.params && this.props.navigation.state.params.filterData)) {
       return (
@@ -275,6 +287,9 @@ export default class BooksList extends React.Component {
     }
   };
 
+  /**
+   *
+   */
   renderList = () => {
     let data;
     if (this.props.navigation.state.params && !this.props.navigation.state.params.filterData) {

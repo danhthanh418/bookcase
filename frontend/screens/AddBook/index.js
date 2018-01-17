@@ -103,10 +103,16 @@ export default class AddBook extends React.Component {
     return books;
   };
 
+  /**
+   * Renders the loading state.
+   */
   renderLoading = () => {
     return <ActivityIndicator size="large" style={[styles.container, styles.horizontal]} color="#00A885" />
   };
 
+  /**
+   *
+   */
   renderAddBook = () => {
     return (
       <View>
