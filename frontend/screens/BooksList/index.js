@@ -13,60 +13,12 @@ const tabsReadingStatus = {
   BookShelfTab: '2'
 };
 
-const initialData = [
-  {
-    "key": "1",
-    "coverUri": "http://books.google.com/books/content?id=wgg7DwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-    "title": "Learning React Native",
-    "authors": [
-        "Bonnie Eisenman"
-    ],
-    "notes": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.",
-    "readingStatus": '0'
-  },
-  {
-    "key": "2",
-    "coverUri": "https://www.bookshare.org/cms/sites/default/files/styles/panopoly_image_original/public/460.png?itok=hObwtU4o",
-    "title": "Two Scoops of Django 1.11",
-    "authors": [
-        "Audrey Roy Greenfeld",
-        "Daniel Roy Greenfeld"
-    ],
-    "notes": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.",
-    "readingStatus": '2'
-  },
-  {
-    "key": "3",
-    "coverUri": "http://books.google.com/books/content?id=_i6bDeoCQzsC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-    "title": "Clean Code",
-    "authors": [
-        "Robert C. Martin",
-        "Dean Wampler"
-    ],
-    "notes": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.",
-    "readingStatus": '2'
-  },
-  {
-    "key": "4",
-    "coverUri": "http://books.google.com/books/content?id=bRpYDgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
-    "title": "Hands-On Machine Learning with Scikit-Learn and TensorFlow",
-    "authors": [
-        "Aurélien Géron"
-    ],
-    "notes": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.",
-    "readingStatus": '1'
-  },
-];
-
 /**
  *
  */
 export default class BooksList extends React.Component {
   constructor(props) {
     super(props);
-
-    // NOTE: remove this line to get rid of the initial data
-    AsyncStorage.setItem('@Bookcase:books', JSON.stringify(initialData));
 
     this.state = {
       loading: false,
