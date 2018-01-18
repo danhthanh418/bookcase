@@ -94,8 +94,7 @@ export default class BooksList extends React.Component {
         await AsyncStorage.setItem('@Bookcase:books', JSON.stringify(newData));
       });
     } catch (error) {
-      // TODO: error saving data, do something
-      alert(error);
+      this.setState({ error });
     }
   };
 

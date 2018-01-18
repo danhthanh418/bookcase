@@ -20,34 +20,15 @@ export default class BookDetails extends React.Component {
   }
 
   componentDidMount() {
-    this.fetchData();
+    this.setState({
+      key: this.props.navigation.state.params.key,
+      notes: this.props.navigation.state.params.notes,
+      readingStatus: this.props.navigation.state.params.readingStatus,
+    });
   }
 
   /**
-   *
-   */
-  fetchData = async () => {
-    // FIXME: this should be probably handled through nav params or props
-    try {
-      // TODO: handle loading state
-      let books = await AsyncStorage.getItem('@Bookcase:books');
-      if (books !== null) {
-        books = JSON.parse(books);
-        const book = books.find((item) => {
-          return item.key === this.state.key;
-        });
-        this.setState({
-          notes: book.notes || constants.NOTES_PLACEHOLDER,
-          readingStatus: book.readingStatus
-        });
-      }
-    } catch (error) {
-      // TODO: error retrieving data, do something
-    }
-  };
-
-  /**
-   *
+   * Updates the state and pushes the changes to AsyncStorage.
    */
   setData = (notes, readingStatus) => {
     try {
