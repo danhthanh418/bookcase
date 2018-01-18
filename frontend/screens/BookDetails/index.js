@@ -22,7 +22,7 @@ export default class BookDetails extends React.Component {
   componentDidMount() {
     this.setState({
       key: this.props.navigation.state.params.key,
-      notes: this.props.navigation.state.params.notes,
+      notes: this.props.navigation.state.params.notes || constants.NOTES_PLACEHOLDER,
       readingStatus: this.props.navigation.state.params.readingStatus,
     });
   }
@@ -53,18 +53,22 @@ export default class BookDetails extends React.Component {
     }
   };
 
+  /**
+   * Clears the notes state if they contain the placeholder.
+   */
+  _clearNotesPlaceholder = () => {
+    if (this.state.notes === constants.NOTES_PLACEHOLDER) {
+      this.setState({ notes: '' });
+    }
+  };
+
   render() {
     return (
       <View>
         <Text style={styles.header}>NOTES</Text>
         <TextInput
           style={styles.textInput}
-          onFocus={() => {
-              if (this.state.notes === constants.NOTES_PLACEHOLDER) {
-                this.setState({ notes: '' });
-              }
-            }
-          }
+          onFocus={() => this._clearNotesPlaceholder()}
           onChangeText={notes => this.setData(notes, this.state.readingStatus)}
           value={this.state.notes}
           multiline
