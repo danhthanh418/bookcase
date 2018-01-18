@@ -109,7 +109,8 @@ export default class BooksList extends React.Component {
   };
 
   /**
-   *
+   * Renders the list item, a book with a cover, a title, and authors in our case.
+   * Touching a book item leads to the BookDetails screen.
    */
   renderItem = ({item}) => (
     <ListItem
@@ -199,9 +200,9 @@ export default class BooksList extends React.Component {
   };
 
   /**
-   *
+   * Helper for returning or not the search bar based on navigation params.
    */
-  getSearchBar = () => {
+  _getSearchBar = () => {
     if (!this.props.navigation.state.params || (this.props.navigation.state.params && this.props.navigation.state.params.filterData)) {
       return (
         <SearchBar
@@ -215,7 +216,7 @@ export default class BooksList extends React.Component {
   };
 
   /**
-   *
+   * Renders the books list using a SwipeListView and thus allowing deletion on swipe right.
    */
   renderList = () => {
     let data;
@@ -228,7 +229,7 @@ export default class BooksList extends React.Component {
 
     return (
       <View style={styles.container}>
-        {this.getSearchBar()}
+        {this._getSearchBar()}
         <SwipeListView
           useFlatList
           data={data}
