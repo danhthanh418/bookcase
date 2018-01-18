@@ -95,9 +95,9 @@ export default class BookDetails extends React.Component {
           selectedValue={this.state.readingStatus}
           onValueChange={itemValue => this.setData(this.state.notes, itemValue.toString())}
         >
-          <Picker.Item label="Unstarted" value="0" />
-          <Picker.Item label="Started" value="1" />
-          <Picker.Item label="Finished" value="2" />
+          <Picker.Item label="Wish List" value="0" />
+          <Picker.Item label="Reading" value="1" />
+          <Picker.Item label="Book Shelf" value="2" />
         </Picker>
       </View>
     );
