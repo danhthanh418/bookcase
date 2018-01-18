@@ -59,7 +59,6 @@ export default class BookDetails extends React.Component {
             if (book.key === this.state.key) {
               book.notes = notes;
               book.readingStatus = readingStatus;
-              this.props.navigation.state.params.refreshData(books);
               break;
             }
           }

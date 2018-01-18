@@ -124,7 +124,6 @@ export default class BooksList extends React.Component {
             title: `${item.title}`,
             notes: `${item.notes}`,
             readingStatus: `${item.readingStatus.toString()}`,
-            refreshData: this.refreshData
           })}
         }
       }
