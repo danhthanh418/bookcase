@@ -29,8 +29,12 @@ export default class Congrats extends React.Component {
       let books = await AsyncStorage.getItem('@Bookcase:books');
       if (books !== null) {
         books = JSON.parse(books);
-        const maxKey = Math.max(...books.map(o => o.key));
-        newBook.key = (maxKey + 1).toString();
+        let maxKey = Math.max(...books.map(o => parseInt(o.key)));
+        if (maxKey < 0) {
+          maxKey = 0;
+        }
+        const newKey = (maxKey + 1).toString();
+        newBook.key = newKey;
         books.push(newBook);
         await AsyncStorage.setItem('@Bookcase:books', JSON.stringify(books));
         const resetAction = NavigationActions.reset({
