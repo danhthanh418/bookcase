@@ -18,7 +18,6 @@ export default class AddBook extends React.Component {
     super(props);
     this.state = {
       search: constants.SEARCH_PLACEHOLDER,
-      data: [],
       loading: false,
       error: null,
     };
@@ -43,7 +42,6 @@ export default class AddBook extends React.Component {
       .then(res => res.json())
       .then(json => {
         this.setState({
-          data: json,
           error: json.error || null,
           loading: false,
         });
