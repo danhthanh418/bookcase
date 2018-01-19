@@ -47,16 +47,17 @@ export default class AddBook extends React.Component {
         });
 
         const books = this.getBooks(json);
-
-        // TODO: if no book results, stay here and display a message
-
-        this.props.navigation.navigate('BooksList', {
-          data: books,
-          filterData: false,
-          showSearchBar: false,
-          searchResults: true,
-          readingStatus: this.props.navigation.state.params.readingStatus,
-        });
+        if (books.length > 0) {
+          this.props.navigation.navigate('BooksList', {
+            data: books,
+            filterData: false,
+            showSearchBar: false,
+            searchResults: true,
+            readingStatus: this.props.navigation.state.params.readingStatus,
+          });
+        } else {
+          this.setState({ error: 'No result found!', loading: false });
+        }
       })
       .catch(error => {
         this.setState({ error, loading: false });
