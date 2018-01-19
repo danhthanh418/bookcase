@@ -31,7 +31,10 @@ export default class BooksList extends React.Component {
   }
 
   componentDidMount() {
-    this.refreshEvent = Events.subscribe('BooksList', (data) => this.refreshData(data));
+    this.refreshEvent = Events.subscribe('BooksList', (data) => {
+      let filteredData = data.filter((book) => book.readingStatus === this.state.readingStatus);
+      this.setState({ data: filteredData });
+    });
 
     if (this.props.navigation.state.params && this.props.navigation.state.params.data) {
       this.setState({ data: this.props.navigation.state.params.data });
@@ -65,13 +68,8 @@ export default class BooksList extends React.Component {
   };
 
   /**
-   *
+   * Adds newBook parameter to AsyncStorage and navigate to Congrats screen.
    */
-  refreshData = (data) => {
-    let filteredData = data.filter((book) => book.readingStatus === this.state.readingStatus);
-    this.setState({ data: filteredData });
-  };
-
   addRow = async (newBook) => {
     try {
       this.setState({ loading: true });
@@ -86,7 +84,6 @@ export default class BooksList extends React.Component {
       }
     } catch (error) {
       this.setState({ error, loading: false });
-      alert(error);
     }
   };
 

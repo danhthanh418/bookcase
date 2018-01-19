@@ -19,9 +19,9 @@ export default class Congrats extends React.Component {
   }
 
   /**
-   *
+   * Resets navigation stack and redirects to Root screen.
    */
-  redirectToRoute = async () => {
+  redirectToRoot = async () => {
     const resetAction = NavigationActions.reset({
       index: 0,
       actions: [
@@ -52,7 +52,7 @@ export default class Congrats extends React.Component {
       <View style={styles.container}>
         <Text style={styles.headline}>Book successfully added!</Text>
         <Button
-          onPress={this.redirectToRoute}
+          onPress={this.redirectToRoot}
           title="Dismiss"
           color="white"
           backgroundColor="#00A885"
