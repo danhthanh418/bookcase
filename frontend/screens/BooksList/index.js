@@ -72,10 +72,22 @@ export default class BooksList extends React.Component {
     this.setState({ data: filteredData });
   };
 
-  addRow = async (item) => {
-    this.props.navigation.navigate('Congrats', {
-      item: item
-    });
+  addRow = async (newBook) => {
+    try {
+      this.setState({ loading: true });
+      let books = await AsyncStorage.getItem('@Bookcase:books');
+      if (books !== null) {
+        books = JSON.parse(books);
+        books.push(newBook);
+        await AsyncStorage.setItem('@Bookcase:books', JSON.stringify(books));
+
+        this.setState({ loading: false });
+        this.props.navigation.navigate('Congrats', { books: books });
+      }
+    } catch (error) {
+      this.setState({ error, loading: false });
+      alert(error);
+    }
   };
 
   /**

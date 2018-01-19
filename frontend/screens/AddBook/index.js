@@ -70,7 +70,8 @@ export default class AddBook extends React.Component {
    */
   getBooks = (json) => {
     let books = [];
-    let key = 1;
+    let counter = 1;
+    let isbns = [];
     for (let item of json["items"]) {
       if (item["kind"] === "books#volume") {
         const volumeInfo = item["volumeInfo"];
@@ -81,18 +82,28 @@ export default class AddBook extends React.Component {
             coverUri = volumeInfo["imageLinks"]["thumbnail"];
           }
 
-          let book = {
-            key: key,
-            title: volumeInfo["title"],
-            authors: volumeInfo["authors"],
-            coverUri: coverUri,
-            "notes": "",
-            readingStatus: this.props.navigation.state.params.readingStatus,
-          };
-          books.push(book);
-          key += 1;
-          if (key > constants.MAX_SEARCH_RESULTS) {
-            break;
+          if (volumeInfo.hasOwnProperty('industryIdentifiers')) {
+            const industryIdentifiers = volumeInfo['industryIdentifiers'];
+            const isbn_13 = industryIdentifiers.filter((identifier) => identifier.type === 'ISBN_13');
+            if (isbn_13.length === 1) {
+              const isbn = isbn_13[0]['identifier'];
+              if (isbns.indexOf(isbn) === -1) {
+                let book = {
+                  key: isbn,
+                  title: volumeInfo["title"],
+                  authors: volumeInfo["authors"],
+                  coverUri: coverUri,
+                  "notes": "",
+                  readingStatus: this.props.navigation.state.params.readingStatus,
+                };
+                books.push(book);
+                isbns.push(isbn);
+                counter += 1;
+                if (counter > constants.MAX_SEARCH_RESULTS) {
+                  break;
+                }
+              }
+            }
           }
         }
       }

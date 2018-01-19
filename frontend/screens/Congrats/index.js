@@ -22,41 +22,19 @@ export default class Congrats extends React.Component {
    *
    */
   redirectToRoute = async () => {
-    try {
-      this.setState({ loading: true });
-      let newBook = this.props.navigation.state.params.item;
-
-      let books = await AsyncStorage.getItem('@Bookcase:books');
-      if (books !== null) {
-        books = JSON.parse(books);
-        let maxKey = Math.max(...books.map(o => parseInt(o.key)));
-        if (maxKey < 0) {
-          maxKey = 0;
+    const resetAction = NavigationActions.reset({
+      index: 0,
+      actions: [
+        {
+          type: 'Navigation/INIT',
+          routeName: 'Root',
+          params: {
+            filterData: this.props.navigation.state.params.books,
+          }
         }
-        const newKey = (maxKey + 1).toString();
-        newBook.key = newKey;
-        books.push(newBook);
-        await AsyncStorage.setItem('@Bookcase:books', JSON.stringify(books));
-        const resetAction = NavigationActions.reset({
-          index: 0,
-          actions: [
-            {
-              type: 'Navigation/INIT',
-              routeName: 'Root',
-              params: {
-                filterData: books,
-              }
-            }
-          ]
-        });
-
-        this.setState({ loading: false });
-        this.props.navigation.dispatch(resetAction);
-      }
-    } catch (error) {
-      this.setState({ error, loading: false });
-      alert(error);
-    }
+      ]
+    });
+    this.props.navigation.dispatch(resetAction);
   }
 
   /**
@@ -78,7 +56,6 @@ export default class Congrats extends React.Component {
           title="Dismiss"
           color="white"
           backgroundColor="#00A885"
-          style={styles.button}
         />
       </View>
     );
