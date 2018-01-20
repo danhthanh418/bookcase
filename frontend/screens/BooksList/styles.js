@@ -5,15 +5,6 @@ export default StyleSheet.create({
     backgroundColor: 'white',
     flex: 1,
   },
-  activityIndicatorContainer: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-  horizontal: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    padding: 10,
-  },
   rightButtonText: {
     color: '#FFF',
   },

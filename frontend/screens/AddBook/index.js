@@ -1,6 +1,7 @@
 import React from 'react';
-import { ActivityIndicator, Text, TextInput, View } from 'react-native';
+import { Text, TextInput, View } from 'react-native';
 import { Button } from 'react-native-elements';
+import LargeActivityIndicator from '../../components/LargeActivityIndicator';
 import { PRIMARY_COLOR } from '../../styles/common';
 import styles from './styles';
 
@@ -117,7 +118,7 @@ export default class AddBook extends React.Component {
    * Renders the loading state.
    */
   renderLoading = () => {
-    return <ActivityIndicator size="large" style={[styles.container, styles.horizontal]} color={PRIMARY_COLOR} />
+    return <LargeActivityIndicator />
   };
 
   /**

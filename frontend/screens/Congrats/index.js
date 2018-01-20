@@ -1,7 +1,8 @@
 import React from 'react';
-import { ActivityIndicator, AsyncStorage, Text, View } from 'react-native';
+import { AsyncStorage, Text, View } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { Button } from 'react-native-elements';
+import { LargeActivityIndicator } from '../../components/LargeActivityIndicator';
 import { PRIMARY_COLOR } from '../../styles/common';
 import styles from './styles';
 
@@ -42,7 +43,7 @@ export default class Congrats extends React.Component {
    * Renders the loading state.
    */
   renderLoading = () => {
-    return <ActivityIndicator size="large" style={[styles.activityIndicatorContainer, styles.horizontal]} color={PRIMARY_COLOR} />;
+    return <LargeActivityIndicator />;
   };
 
   /**

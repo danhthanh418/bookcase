@@ -1,8 +1,9 @@
 import React from 'react';
-import { ActivityIndicator, AsyncStorage, FlatList, Text, TouchableHighlight, TouchableOpacity, View } from 'react-native';
+import { AsyncStorage, FlatList, Text, TouchableHighlight, TouchableOpacity, View } from 'react-native';
 import { Avatar, ListItem, SearchBar } from 'react-native-elements';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import Events from '../../events';
+import LargeActivityIndicator from '../../components/LargeActivityIndicator';
 import { PRIMARY_COLOR } from '../../styles/common';
 import styles from './styles';
 
@@ -196,7 +197,7 @@ export default class BooksList extends React.Component {
    * Renders the loading state.
    */
   renderLoading = () => {
-    return <ActivityIndicator size="large" style={[styles.activityIndicatorContainer, styles.horizontal]} color={PRIMARY_COLOR} />;
+    return <LargeActivityIndicator />;
   };
 
   /**
