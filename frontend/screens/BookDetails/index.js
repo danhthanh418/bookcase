@@ -8,7 +8,10 @@ const constants = {
   NOTES_PLACEHOLDER: 'Type your notes here',
 };
 
-
+/**
+ * Renders the book details screen. Shows the notes and reading status
+ * of the book.
+ */
 export default class BookDetails extends React.Component {
   constructor(props) {
     super(props);
@@ -16,6 +19,7 @@ export default class BookDetails extends React.Component {
       key: props.navigation.state.params.key,
       notes: constants.NOTES_PLACEHOLDER,
       readingStatus: props.navigation.state.params.readingStatus,
+      error: null,
     };
   }
 
@@ -48,8 +52,8 @@ export default class BookDetails extends React.Component {
         }
       });
     } catch (error) {
-      // TODO: error saving data, do something
-      alert(error);
+      // TODO: add something saying that we could not save the change
+      this.setState({ error })
     }
   };
 
