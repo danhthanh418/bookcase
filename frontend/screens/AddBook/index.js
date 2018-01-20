@@ -42,13 +42,9 @@ export default class AddBook extends React.Component {
     fetch(url)
       .then(res => res.json())
       .then(json => {
-        this.setState({
-          error: json.error || null,
-          loading: false,
-        });
-
         const books = this.getBooks(json);
         if (books.length > 0) {
+          this.setState({ loading: false });
           this.props.navigation.navigate('BooksList', {
             data: books,
             filterData: false,
@@ -62,7 +58,6 @@ export default class AddBook extends React.Component {
       })
       .catch(error => {
         this.setState({ error, loading: false });
-        alert(error);
       });
   };
 
