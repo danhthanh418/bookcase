@@ -3,6 +3,7 @@ import { ActivityIndicator, AsyncStorage, FlatList, Text, TouchableHighlight, To
 import { Avatar, ListItem, SearchBar } from 'react-native-elements';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import Events from '../../events';
+import { PRIMARY_COLOR } from '../../styles/common';
 import styles from './styles';
 
 
@@ -195,7 +196,7 @@ export default class BooksList extends React.Component {
    * Renders the loading state.
    */
   renderLoading = () => {
-    return <ActivityIndicator size="large" style={[styles.activityIndicatorContainer, styles.horizontal]} color="#00A885" />;
+    return <ActivityIndicator size="large" style={[styles.activityIndicatorContainer, styles.horizontal]} color={PRIMARY_COLOR} />;
   };
 
   /**

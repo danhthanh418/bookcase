@@ -2,6 +2,7 @@ import React from 'react';
 import { ActivityIndicator, AsyncStorage, Text, View } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { Button } from 'react-native-elements';
+import { PRIMARY_COLOR } from '../../styles/common';
 import styles from './styles';
 
 /**
@@ -38,14 +39,14 @@ export default class Congrats extends React.Component {
   }
 
   /**
-   *
+   * Renders the loading state.
    */
   renderLoading = () => {
-    return <ActivityIndicator size="large" style={[styles.activityIndicatorContainer, styles.horizontal]} color="#00A885" />;
+    return <ActivityIndicator size="large" style={[styles.activityIndicatorContainer, styles.horizontal]} color={PRIMARY_COLOR} />;
   };
 
   /**
-   *
+   * Renders a simple screen with a text and a dismiss button.
    */
   renderCongrats = () => {
     return (
@@ -55,7 +56,7 @@ export default class Congrats extends React.Component {
           onPress={this.redirectToRoot}
           title="Dismiss"
           color="white"
-          backgroundColor="#00A885"
+          backgroundColor={PRIMARY_COLOR}
         />
       </View>
     );

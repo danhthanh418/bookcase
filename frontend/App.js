@@ -7,7 +7,10 @@ import BookDetails from './screens/BookDetails';
 import Congrats from './screens/Congrats';
 import AddButton from './components/AddButton';
 
-
+/**
+ * The tab navigator for the three reading statuses.
+ * Is embedded in the stack navigator.
+ */
 const TabNav = TabNavigator(
   {
     WishListTab: {

@@ -1,8 +1,8 @@
 import React from 'react';
 import { ActivityIndicator, Text, TextInput, View } from 'react-native';
 import { Button } from 'react-native-elements';
+import { PRIMARY_COLOR } from '../../styles/common';
 import styles from './styles';
-
 
 const constants = {
   SEARCH_PLACEHOLDER: 'Type your book title...',
@@ -117,7 +117,7 @@ export default class AddBook extends React.Component {
    * Renders the loading state.
    */
   renderLoading = () => {
-    return <ActivityIndicator size="large" style={[styles.container, styles.horizontal]} color="#00A885" />
+    return <ActivityIndicator size="large" style={[styles.container, styles.horizontal]} color={PRIMARY_COLOR} />
   };
 
   /**
@@ -141,7 +141,7 @@ export default class AddBook extends React.Component {
           onPress={this.searchBooks}
           title="Search Books"
           color="white"
-          backgroundColor="#00A885"
+          backgroundColor={PRIMARY_COLOR}
         />
       </View>
     );
