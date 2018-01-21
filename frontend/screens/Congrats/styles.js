@@ -8,5 +8,6 @@ export default StyleSheet.create({
   headline: {
     textAlign: 'center',
     fontSize: 24,
+    height: 100,
   },
 });
