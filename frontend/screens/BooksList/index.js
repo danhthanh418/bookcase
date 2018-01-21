@@ -16,7 +16,8 @@ const tabsReadingStatus = {
 };
 
 /**
- *
+ * Main component for the app. It shows the list of books and is
+ * reused for all the reading statuses.
  */
 export default class BooksList extends React.Component {
   constructor(props) {
