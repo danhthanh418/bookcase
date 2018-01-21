@@ -21,7 +21,7 @@ const TabNav = TabNavigator(
         tabBarLabel: 'Wish List',
         tabBarIcon: ({ tintColor }) => (
           <Image
-            source={require('./img/list.png')}
+            source={require('./static/img/list.png')}
             style={{ tintColor: tintColor }}
           />
         ),
@@ -39,7 +39,7 @@ const TabNav = TabNavigator(
         tabBarLabel: 'Reading',
         tabBarIcon: ({ tintColor }) => (
           <Image
-            source={require('./img/reading.png')}
+            source={require('./static/img/reading.png')}
             style={{ tintColor: tintColor }}
           />
         ),
@@ -57,7 +57,7 @@ const TabNav = TabNavigator(
         tabBarLabel: 'Book Shelf',
         tabBarIcon: ({ tintColor }) => (
           <Image
-            source={require('./img/shelf.png')}
+            source={require('./static/img/shelf.png')}
             style={{ tintColor: tintColor }}
           />
         ),

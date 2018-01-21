@@ -17,7 +17,7 @@ export default class AddButton extends React.Component {
           }}
         >
           <Image
-            source={require('./../../img/plus.png')}
+            source={require('./../../static/img/plus.png')}
             style={styles.headerLeft}
           />
         </TouchableOpacity>

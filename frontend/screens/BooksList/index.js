@@ -4,7 +4,7 @@ import { Avatar, ListItem, SearchBar } from 'react-native-elements';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import Events from '../../events';
 import LargeActivityIndicator from '../../components/LargeActivityIndicator';
-import { PRIMARY_COLOR } from '../../styles/common';
+import { PRIMARY_COLOR } from '../../static/styles/common';
 import styles from './styles';
 
 

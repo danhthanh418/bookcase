@@ -3,7 +3,7 @@ import { AsyncStorage, Text, View } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { Button } from 'react-native-elements';
 import { LargeActivityIndicator } from '../../components/LargeActivityIndicator';
-import { PRIMARY_COLOR } from '../../styles/common';
+import { PRIMARY_COLOR } from '../../static/styles/common';
 import styles from './styles';
 
 /**

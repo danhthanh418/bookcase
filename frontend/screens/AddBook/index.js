@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, TextInput, View } from 'react-native';
 import { Button } from 'react-native-elements';
 import LargeActivityIndicator from '../../components/LargeActivityIndicator';
-import { PRIMARY_COLOR } from '../../styles/common';
+import { PRIMARY_COLOR } from '../../static/styles/common';
 import styles from './styles';
 
 const constants = {

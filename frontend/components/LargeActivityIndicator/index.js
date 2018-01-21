@@ -1,6 +1,6 @@
 import React from 'react';
 import { ActivityIndicator } from 'react-native';
-import { PRIMARY_COLOR } from '../../styles/common';
+import { PRIMARY_COLOR } from '../../static/styles/common';
 import styles from './styles';
 
 /**
