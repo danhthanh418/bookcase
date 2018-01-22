@@ -1,8 +1,9 @@
 import React from 'react';
 import { Text, TextInput, View } from 'react-native';
 import { Button } from 'react-native-elements';
+import ErrorView from '../../components/ErrorView';
 import LargeActivityIndicator from '../../components/LargeActivityIndicator';
-import { PRIMARY_COLOR } from '../../static/styles/common';
+import { primaryColor } from '../../static/styles/common';
 import styles from './styles';
 
 const constants = {
@@ -57,7 +58,7 @@ export default class AddBook extends React.Component {
         }
       })
       .catch(error => {
-        this.setState({ error, loading: false });
+        this.setState({ error: 'An error occurred while searching for new books', loading: false });
       });
   };
 
@@ -67,8 +68,11 @@ export default class AddBook extends React.Component {
    */
   getBooks = (json) => {
     let books = [];
-    let counter = 1;
     let isbns = [];
+    let counter = 1;
+
+    // TODO: check that the book is not already added (by isbn)
+
     for (let item of json["items"]) {
       if (item["kind"] === "books#volume") {
         const volumeInfo = item["volumeInfo"];
@@ -117,6 +121,13 @@ export default class AddBook extends React.Component {
   };
 
   /**
+   * Renders the error state.
+   */
+  renderError = () => {
+    return <ErrorView error={this.state.error} />
+  };
+
+  /**
    *
    */
   renderAddBook = () => {
@@ -137,7 +148,7 @@ export default class AddBook extends React.Component {
           onPress={this.searchBooks}
           title="Search Books"
           color="white"
-          backgroundColor={PRIMARY_COLOR}
+          backgroundColor={primaryColor}
         />
       </View>
     );
@@ -146,6 +157,8 @@ export default class AddBook extends React.Component {
   render() {
     if (this.state.loading) {
       return this.renderLoading();
+    } else if (this.state.error) {
+      return this.renderError();
     } else {
       return this.renderAddBook();
     }

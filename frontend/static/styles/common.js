@@ -1,1 +1,2 @@
-export const PRIMARY_COLOR = '#00A885';
+export const primaryColor = '#00A885';
+export const importantFontSize = 24;

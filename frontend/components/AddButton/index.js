@@ -3,7 +3,7 @@ import { TouchableOpacity, Image, View } from 'react-native';
 import styles from './styles';
 
 /**
- * A plus button detecting the current route on press.
+ * A plus button for adding a new book.
  */
 export default class AddButton extends React.Component {
   render() {

@@ -1,5 +1,6 @@
 import React from 'react';
 import { AsyncStorage, Picker, Text, TextInput, View } from 'react-native';
+import ErrorView from '../../components/ErrorView';
 import Events from '../../events';
 import styles from './styles';
 
@@ -16,9 +17,9 @@ export default class BookDetails extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      key: props.navigation.state.params.key,
-      notes: constants.NOTES_PLACEHOLDER,
-      readingStatus: props.navigation.state.params.readingStatus,
+      key: null,
+      notes: '',
+      readingStatus: '0',
       error: null,
     };
   }
@@ -39,8 +40,8 @@ export default class BookDetails extends React.Component {
       this.setState({ notes, readingStatus }, async () => {
         let books = await AsyncStorage.getItem('@Bookcase:books');
         if (books !== null) {
-          books = JSON.parse(books);
-          for (let book of books) {
+          books = JSON.parse(books);  // TODO: needed?
+          for (let book of books) {  // TODO: probably better than this loop?
             if (book.key === this.state.key) {
               book.notes = notes;
               book.readingStatus = readingStatus;
@@ -52,8 +53,7 @@ export default class BookDetails extends React.Component {
         }
       });
     } catch (error) {
-      // TODO: add something saying that we could not save the change
-      this.setState({ error })
+      this.setState({ error: 'Error while saving data...' })
     }
   };
 
@@ -66,7 +66,18 @@ export default class BookDetails extends React.Component {
     }
   };
 
-  render() {
+  /**
+   * Renders the error state.
+   */
+  renderError() {
+    return <ErrorView error={this.state.error} />;
+  }
+
+  /**
+   * Renders the book details view displaying the notes and the
+   * reading status of the book.
+   */
+  renderBookDetails() {
     return (
       <View>
         <Text style={styles.header}>NOTES</Text>
@@ -89,5 +100,13 @@ export default class BookDetails extends React.Component {
         </Picker>
       </View>
     );
+  }
+
+  render() {
+    if (this.state.error) {
+      return this.renderError();
+    } else {
+      return this.renderBookDetails();
+    }
   }
 }

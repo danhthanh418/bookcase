@@ -1,6 +1,6 @@
 import React from 'react';
 import { ActivityIndicator } from 'react-native';
-import { PRIMARY_COLOR } from '../../static/styles/common';
+import { primaryColor } from '../../static/styles/common';
 import styles from './styles';
 
 /**
@@ -8,6 +8,6 @@ import styles from './styles';
  */
 export default class LargeActivityIndicator extends React.Component {
   render() {
-    return <ActivityIndicator size="large" style={[styles.activityIndicatorContainer, styles.horizontal]} color={PRIMARY_COLOR} />;
+    return <ActivityIndicator size="large" style={[styles.activityIndicatorContainer, styles.horizontal]} color={primaryColor} />;
   }
 }

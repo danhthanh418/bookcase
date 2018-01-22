@@ -5,10 +5,12 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
+    alignItems: 'center',
+    marginLeft: 15,
+    marginRight: 15,
   },
-  headline: {
+  text: {
     textAlign: 'center',
     fontSize: importantFontSize,
-    height: 100,
   },
 });

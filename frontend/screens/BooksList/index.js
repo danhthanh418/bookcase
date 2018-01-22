@@ -3,8 +3,8 @@ import { AsyncStorage, FlatList, Text, TouchableHighlight, TouchableOpacity, Vie
 import { Avatar, ListItem, SearchBar } from 'react-native-elements';
 import { SwipeListView } from 'react-native-swipe-list-view';
 import Events from '../../events';
+import ErrorView from '../../components/ErrorView';
 import LargeActivityIndicator from '../../components/LargeActivityIndicator';
-import { PRIMARY_COLOR } from '../../static/styles/common';
 import styles from './styles';
 
 
@@ -66,7 +66,7 @@ export default class BooksList extends React.Component {
         this.setState({ data: books, loading: false });
       }
     } catch (error) {
-      this.setState({ error, loading: false });
+      this.setState({ error: 'An error occurred while fetching your data', loading: false });
     }
   };
 
@@ -86,7 +86,7 @@ export default class BooksList extends React.Component {
         this.props.navigation.navigate('Congrats', { books: books });
       }
     } catch (error) {
-      this.setState({ error, loading: false });
+      this.setState({ error: 'An error occurred while adding a book', loading: false });
     }
   };
 
@@ -106,7 +106,7 @@ export default class BooksList extends React.Component {
         await AsyncStorage.setItem('@Bookcase:books', JSON.stringify(newData));
       });
     } catch (error) {
-      this.setState({ error });
+      this.setState({ error: 'An error occurred while deleting a book' });
     }
   };
 
@@ -205,8 +205,7 @@ export default class BooksList extends React.Component {
    * Renders the error state.
    */
   renderError = () => {
-    // TODO: add some style and a refresh button
-    return <Text>Loading error! Please try again.</Text>;
+    return <ErrorView error={this.state.error} />;
   };
 
   /**
