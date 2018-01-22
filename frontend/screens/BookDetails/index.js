@@ -40,8 +40,8 @@ export default class BookDetails extends React.Component {
       this.setState({ notes, readingStatus }, async () => {
         let books = await AsyncStorage.getItem('@Bookcase:books');
         if (books !== null) {
-          books = JSON.parse(books);  // TODO: needed?
-          for (let book of books) {  // TODO: probably better than this loop?
+          books = JSON.parse(books);
+          for (let book of books) {
             if (book.key === this.state.key) {
               book.notes = notes;
               book.readingStatus = readingStatus;
@@ -67,7 +67,7 @@ export default class BookDetails extends React.Component {
   };
 
   /**
-   * Renders the error state.
+   * Renders the error view.
    */
   renderError() {
     return <ErrorView error={this.state.error} />;

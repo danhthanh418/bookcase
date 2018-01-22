@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, TextInput, View } from 'react-native';
+import { AsyncStorage, Text, TextInput, View } from 'react-native';
 import { Button } from 'react-native-elements';
 import ErrorView from '../../components/ErrorView';
 import LargeActivityIndicator from '../../components/LargeActivityIndicator';
@@ -68,42 +68,31 @@ export default class AddBook extends React.Component {
    */
   getBooks = (json) => {
     let books = [];
-    let isbns = [];
-    let counter = 1;
-
-    // TODO: check that the book is not already added (by isbn)
+    const currentIsbns = this._fetchExistingIsbns();
+    let searchIsbns = [];
+    let counter = 0;
 
     for (let item of json["items"]) {
       if (item["kind"] === "books#volume") {
         const volumeInfo = item["volumeInfo"];
-
         if (volumeInfo["title"] && volumeInfo["authors"]) {
-          let coverUri = constants.PLACEHOLDER_COVER_URI;
-          if (volumeInfo["imageLinks"] && volumeInfo["imageLinks"]["thumbnail"]) {
-            coverUri = volumeInfo["imageLinks"]["thumbnail"];
-          }
+          const coverUri = this._getCoverUri(volumeInfo);
 
-          if (volumeInfo.hasOwnProperty('industryIdentifiers')) {
-            const industryIdentifiers = volumeInfo['industryIdentifiers'];
-            const isbn_13 = industryIdentifiers.filter((identifier) => identifier.type === 'ISBN_13');
-            if (isbn_13.length === 1) {
-              const isbn = isbn_13[0]['identifier'];
-              if (isbns.indexOf(isbn) === -1) {
-                let book = {
-                  key: isbn,
-                  title: volumeInfo["title"],
-                  authors: volumeInfo["authors"],
-                  coverUri: coverUri,
-                  "notes": "",
-                  readingStatus: this.props.navigation.state.params.readingStatus,
-                };
-                books.push(book);
-                isbns.push(isbn);
-                counter += 1;
-                if (counter > constants.MAX_SEARCH_RESULTS) {
-                  break;
-                }
-              }
+          const isbn = this._getIsbn13(volumeInfo);
+          if (this._isNewIsbn(isbn, searchIsbns, currentIsbns)) {
+            let book = {
+              key: isbn,
+              title: volumeInfo["title"],
+              authors: volumeInfo["authors"],
+              coverUri: coverUri,
+              "notes": "",
+              readingStatus: this.props.navigation.state.params.readingStatus,
+            };
+            books.push(book);
+            searchIsbns.push(isbn);
+            counter += 1;
+            if (counter > constants.MAX_SEARCH_RESULTS) {
+              break;
             }
           }
         }
@@ -114,21 +103,81 @@ export default class AddBook extends React.Component {
   };
 
   /**
-   * Renders the loading state.
+   * Fetches the list of isbn from the current list of books.
+   */
+  _fetchExistingIsbns = () => {
+    let currentIsbns = [];
+    try {
+      let books = AsyncStorage.getItem('@Bookcase:books');
+      if (books !== null) {
+        books = JSON.parse(books);
+        currentIsbns = books.map(book => book.key);
+      }
+    } catch (error) {
+      this.setState({ error: 'An error occurred while searching for new books', loading: false });
+    }
+
+    return currentIsbns;
+  };
+
+  /**
+   * Returns the coverUri from volumeInfo if it exists, a placeholder otherwise.
+   */
+  _getCoverUri = (volumeInfo) => {
+    let coverUri = constants.PLACEHOLDER_COVER_URI;
+    if (volumeInfo["imageLinks"] && volumeInfo["imageLinks"]["thumbnail"]) {
+      coverUri = volumeInfo["imageLinks"]["thumbnail"];
+    }
+
+    return coverUri;
+  };
+
+  /**
+   * Returns the isbn 13 from volumeInfo if it exists, null otherwise.
+   */
+  _getIsbn13 = (volumeInfo) => {
+    if (volumeInfo.hasOwnProperty('industryIdentifiers')) {
+      const industryIdentifiers = volumeInfo['industryIdentifiers'];
+      const isbn_13 = industryIdentifiers.filter(identifier => identifier.type === 'ISBN_13');
+      if (isbn_13.length === 1) {
+        return isbn_13[0]['identifier'];
+      }
+    }
+
+    return null;
+  };
+
+  /**
+   * Returns whether the isbn is new or not.
+   * A new isbn is not in the previous search results nor in the current
+   * list of books.
+   */
+  _isNewIsbn = (isbn, searchIsbns, currentIsbns) => {
+    if (isbn && searchIsbns && currentIsbns) {
+      if (searchIsbns.indexOf(isbn) === -1 && currentIsbns.indexOf(isbn) === -1) {
+        return true;
+      }
+    }
+
+    return false;
+  };
+
+  /**
+   * Renders the loading view.
    */
   renderLoading = () => {
     return <LargeActivityIndicator />
   };
 
   /**
-   * Renders the error state.
+   * Renders the error view.
    */
   renderError = () => {
     return <ErrorView error={this.state.error} />
   };
 
   /**
-   *
+   * Renders a search box and a submit button for adding a book.
    */
   renderAddBook = () => {
     return (

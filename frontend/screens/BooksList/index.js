@@ -35,14 +35,14 @@ export default class BooksList extends React.Component {
 
   componentDidMount() {
     this.refreshEvent = Events.subscribe('BooksList', (data) => {
-      let filteredData = data.filter((book) => book.readingStatus === this.state.readingStatus);
+      let filteredData = data.filter(book => book.readingStatus === this.state.readingStatus);
       this.setState({ data: filteredData });
     });
 
     if (this.props.navigation.state.params && this.props.navigation.state.params.data) {
       this.setState({ data: this.props.navigation.state.params.data });
     } else if (this.props.navigation.state.params && this.props.navigation.state.params.filterData) {
-      const data = this.props.navigation.state.params.filterData.filter((book) => book.readingStatus === this.state.readingStatus);
+      const data = this.props.navigation.state.params.filterData.filter(book => book.readingStatus === this.state.readingStatus);
       this.setState({ data });
     } else {
       this.fetchData();
@@ -195,14 +195,14 @@ export default class BooksList extends React.Component {
   };
 
   /**
-   * Renders the loading state.
+   * Renders the loading view.
    */
   renderLoading = () => {
     return <LargeActivityIndicator />;
   };
 
   /**
-   * Renders the error state.
+   * Renders the error view.
    */
   renderError = () => {
     return <ErrorView error={this.state.error} />;
@@ -216,7 +216,7 @@ export default class BooksList extends React.Component {
       return (
         <SearchBar
           placeholder="Search among your books..."
-          onChangeText={(text) => this.setState({ searchText: text})}
+          onChangeText={text => this.setState({ searchText: text})}
           onClearText={() => this.setState({ searchText: ''})}
           lightTheme
         />
