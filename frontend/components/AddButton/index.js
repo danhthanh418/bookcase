@@ -6,6 +6,11 @@ import styles from './styles';
  * A plus button for adding a new book.
  */
 export default class AddButton extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { error: null };
+  }
+
   _onPress = async () => {
     try {
       let books = await AsyncStorage.getItem('@Bookcase:books');
@@ -19,7 +24,7 @@ export default class AddButton extends React.Component {
         })
       }
     } catch (error) {
-      this.setState({ error: 'An error occurred while searching for new books', loading: false });
+      this.setState({ error: 'An error occurred while searching for new books' });
     }
   };
 

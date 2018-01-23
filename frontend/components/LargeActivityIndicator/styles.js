@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { paddingNormal } from '../../static/styles/common';
 
 export default StyleSheet.create({
   activityIndicatorContainer: {
@@ -8,6 +9,6 @@ export default StyleSheet.create({
   horizontal: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    padding: 10,
+    padding: paddingNormal,
   },
 });

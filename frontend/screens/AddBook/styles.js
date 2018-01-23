@@ -1,5 +1,7 @@
 import { StyleSheet } from 'react-native';
-import { fontSizeSmall, fontSizeNormal, fontSizeBig, marginHorizontalSmall, marginVerticalBig } from '../../static/styles/common';
+import {
+  borderWidthNormal, fontSizeSmall, fontSizeNormal, fontSizeBig,
+  marginHorizontalSmall, marginVerticalBig, paddingSmall, paddingNormal } from '../../static/styles/common';
 
 export default StyleSheet.create({
   container: {
@@ -9,7 +11,7 @@ export default StyleSheet.create({
   horizontal: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    padding: 10,
+    padding: paddingNormal,
   },
   headline: {
     textAlign: 'center',
@@ -28,12 +30,12 @@ export default StyleSheet.create({
     textAlignVertical: 'center',
     backgroundColor: 'white',
     borderColor: '#C7C7C7',
-    borderWidth: 1.0,
+    borderWidth: borderWidthNormal,
     color: 'gray',
     fontSize: fontSizeSmall,
     height: 40,
     marginLeft: marginHorizontalSmall,
     marginRight: marginHorizontalSmall,
-    paddingLeft: 5,
+    paddingLeft: paddingSmall,
   },
 });

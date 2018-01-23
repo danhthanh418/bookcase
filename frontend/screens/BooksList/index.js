@@ -65,8 +65,9 @@ export default class BooksList extends React.Component {
       if (books !== null) {
         books = JSON.parse(books);
         books = books.filter(book => book.readingStatus === this.state.readingStatus);
-        this.setState({ data: books, loading: false });
+        this.setState({ data: books });
       }
+      this.setState({ loading: false });
     } catch (error) {
       this.setState({ error: 'An error occurred while fetching your data', loading: false });
     }
@@ -87,6 +88,8 @@ export default class BooksList extends React.Component {
         this.setState({ loading: false }, () => {
           this.props.navigation.navigate('Congrats', { data: books });
         });
+      } else {
+        this.setState({ loading: false });
       }
     } catch (error) {
       this.setState({ error: 'An error occurred while adding a book', loading: false });

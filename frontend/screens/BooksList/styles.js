@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { marginVerticalNormal } from '../../static/styles/common';
+import { marginVerticalNormal, paddingBig } from '../../static/styles/common';
 
 export default StyleSheet.create({
   container: {
@@ -20,7 +20,7 @@ export default StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingLeft: 15,
+    paddingLeft: paddingBig,
   },
   deleteRightButton: {
     alignItems: 'center',
