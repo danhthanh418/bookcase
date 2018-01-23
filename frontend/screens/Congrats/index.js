@@ -20,7 +20,8 @@ export default class Congrats extends React.Component {
           type: 'Navigation/INIT',
           routeName: 'Root',
           params: {
-            filterData: this.props.navigation.state.params.books,
+            data: this.props.navigation.state.params.data,
+            isSearchResults: false,
           }
         }
       ]

@@ -1,8 +1,9 @@
 import { StyleSheet } from 'react-native';
+import { marginHorizontalSmall } from '../../static/styles/common';
 
 export default StyleSheet.create({
   headerLeft: {
-    marginLeft: 10,
+    marginLeft: marginHorizontalSmall,
     justifyContent: 'center',
     alignItems: 'center',
   },

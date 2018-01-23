@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { importantFontSize } from '../../static/styles/common';
+import { fontSizeSmall, fontSizeNormal, fontSizeBig, marginHorizontalSmall, marginVerticalBig } from '../../static/styles/common';
 
 export default StyleSheet.create({
   container: {
@@ -13,16 +13,16 @@ export default StyleSheet.create({
   },
   headline: {
     textAlign: 'center',
-    fontSize: importantFontSize,
-    marginTop: 30,
-    marginBottom: 30,
+    fontSize: fontSizeBig,
+    marginTop: marginVerticalBig,
+    marginBottom: marginVerticalBig,
   },
   error: {
     color: 'red',
     textAlign: 'center',
-    fontSize: 20,
-    marginTop: 30,
-    marginBottom: 30,
+    fontSize: fontSizeNormal,
+    marginTop: marginVerticalBig,
+    marginBottom: marginVerticalBig,
   },
   searchBox: {
     textAlignVertical: 'center',
@@ -30,10 +30,10 @@ export default StyleSheet.create({
     borderColor: '#C7C7C7',
     borderWidth: 1.0,
     color: 'gray',
-    fontSize: 16,
+    fontSize: fontSizeSmall,
     height: 40,
-    marginLeft: 15,
-    marginRight: 15,
+    marginLeft: marginHorizontalSmall,
+    marginRight: marginHorizontalSmall,
     paddingLeft: 5,
   },
 });

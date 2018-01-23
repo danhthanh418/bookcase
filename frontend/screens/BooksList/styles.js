@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { marginVerticalNormal } from '../../static/styles/common';
 
 export default StyleSheet.create({
   container: {
@@ -11,7 +12,7 @@ export default StyleSheet.create({
   rowFront: {
     backgroundColor: 'white',
     borderBottomWidth: 0,
-    marginBottom: 20,
+    marginBottom: marginVerticalNormal,
   },
   rowBack: {
     alignItems: 'center',
@@ -26,7 +27,7 @@ export default StyleSheet.create({
     backgroundColor: 'red',
     bottom: 0,
     justifyContent: 'center',
-    marginBottom: 20,
+    marginBottom: marginVerticalNormal,
     position: 'absolute',
     right: 0,
     top: 0,

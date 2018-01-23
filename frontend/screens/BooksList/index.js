@@ -26,10 +26,9 @@ export default class BooksList extends React.Component {
     this.state = {
       loading: false,
       data: props.initialData || [],
-      error: null,
-      refreshing: false,
       readingStatus: tabsReadingStatus[props.navigation.state.routeName],
       searchText: '',
+      error: null,
     };
   }
 
@@ -39,11 +38,14 @@ export default class BooksList extends React.Component {
       this.setState({ data: filteredData });
     });
 
-    if (this.props.navigation.state.params && this.props.navigation.state.params.data) {
-      this.setState({ data: this.props.navigation.state.params.data });
-    } else if (this.props.navigation.state.params && this.props.navigation.state.params.filterData) {
-      const data = this.props.navigation.state.params.filterData.filter(book => book.readingStatus === this.state.readingStatus);
-      this.setState({ data });
+    const params = this.props.navigation.state.params;
+    if (params && params.data) {
+      if (this._isSearchResults()) {
+        this.setState({ data: params.data });
+      } else {
+        const data = params.data.filter(book => book.readingStatus === this.state.readingStatus);
+        this.setState({ data });
+      }
     } else {
       this.fetchData();
     }
@@ -62,7 +64,7 @@ export default class BooksList extends React.Component {
       let books = await AsyncStorage.getItem('@Bookcase:books');
       if (books !== null) {
         books = JSON.parse(books);
-        books = books.filter((book) => book.readingStatus === this.state.readingStatus);
+        books = books.filter(book => book.readingStatus === this.state.readingStatus);
         this.setState({ data: books, loading: false });
       }
     } catch (error) {
@@ -82,8 +84,9 @@ export default class BooksList extends React.Component {
         books.push(newBook);
         await AsyncStorage.setItem('@Bookcase:books', JSON.stringify(books));
 
-        this.setState({ loading: false });
-        this.props.navigation.navigate('Congrats', { books: books });
+        this.setState({ loading: false }, () => {
+          this.props.navigation.navigate('Congrats', { data: books });
+        });
       }
     } catch (error) {
       this.setState({ error: 'An error occurred while adding a book', loading: false });
@@ -126,8 +129,9 @@ export default class BooksList extends React.Component {
   renderItem = ({item}) => (
     <ListItem
       onPress={() => {
-        if (this.props.navigation.state.params && this.props.navigation.state.params.searchResults) {
-          item.readingStatus = tabsReadingStatus[this.props.navigation.state.params.readingStatus];
+        const params = this.props.navigation.state.params;
+        if (this._isSearchResults()) {
+          item.readingStatus = tabsReadingStatus[params.readingStatus];
           this.addRow(item);
         } else {
           this.props.navigation.navigate('BookDetails', {
@@ -212,7 +216,7 @@ export default class BooksList extends React.Component {
    * Helper for returning or not the search bar based on navigation params.
    */
   _getSearchBar = () => {
-    if (!this.props.navigation.state.params || (this.props.navigation.state.params && this.props.navigation.state.params.filterData)) {
+    if (!this._isSearchResults()) {
       return (
         <SearchBar
           placeholder="Search among your books..."
@@ -225,11 +229,23 @@ export default class BooksList extends React.Component {
   };
 
   /**
+   * Returns true if this books list is from a search in google books api, false otherwise.
+   */
+  _isSearchResults = () => {
+    const params = this.props.navigation.state.params;
+    if (params && params.isSearchResults) {
+      return true;
+    }
+
+    return false;
+  };
+
+  /**
    * Renders the books list using a SwipeListView and thus allowing deletion on swipe right.
    */
   renderList = () => {
     let data;
-    if (this.props.navigation.state.params && !this.props.navigation.state.params.filterData) {
+    if (this._isSearchResults()) {
       data = this.state.data;
     } else {
       data = this.filterData(this.state.searchText, this.state.data);

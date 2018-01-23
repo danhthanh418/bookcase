@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { importantFontSize } from '../../static/styles/common';
+import { fontSizeBig } from '../../static/styles/common';
 
 export default StyleSheet.create({
   container: {
@@ -8,7 +8,7 @@ export default StyleSheet.create({
   },
   headline: {
     textAlign: 'center',
-    fontSize: importantFontSize,
+    fontSize: fontSizeBig,
     height: 100,
   },
 });

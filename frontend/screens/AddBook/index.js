@@ -48,9 +48,7 @@ export default class AddBook extends React.Component {
           this.setState({ loading: false });
           this.props.navigation.navigate('BooksList', {
             data: books,
-            filterData: false,
-            showSearchBar: false,
-            searchResults: true,
+            isSearchResults: true,
             readingStatus: this.props.navigation.state.params.readingStatus,
           });
         } else {
@@ -68,7 +66,7 @@ export default class AddBook extends React.Component {
    */
   getBooks = (json) => {
     let books = [];
-    const currentIsbns = this._fetchExistingIsbns();
+    const currentIsbns = this.props.navigation.state.params.currentIsbns || [];
     let searchIsbns = [];
     let counter = 0;
 
@@ -100,24 +98,6 @@ export default class AddBook extends React.Component {
     }
 
     return books;
-  };
-
-  /**
-   * Fetches the list of isbn from the current list of books.
-   */
-  _fetchExistingIsbns = () => {
-    let currentIsbns = [];
-    try {
-      let books = AsyncStorage.getItem('@Bookcase:books');
-      if (books !== null) {
-        books = JSON.parse(books);
-        currentIsbns = books.map(book => book.key);
-      }
-    } catch (error) {
-      this.setState({ error: 'An error occurred while searching for new books', loading: false });
-    }
-
-    return currentIsbns;
   };
 
   /**

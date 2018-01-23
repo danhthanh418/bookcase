@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { fontSizeSmall, marginVerticalNormal } from '../../static/styles/common';
 
 export default StyleSheet.create({
   header: {
@@ -11,9 +12,9 @@ export default StyleSheet.create({
     backgroundColor: 'white',
     borderColor: '#C7C7C7',
     borderWidth: 0.5,
-    fontSize: 16,
+    fontSize: fontSizeSmall,
     height: 200,
-    marginBottom: 20,
+    marginBottom: marginVerticalNormal,
     paddingLeft: 5,
   },
 });
