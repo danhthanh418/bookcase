@@ -16,3 +16,12 @@ More detailed instructions can be found in [frontend/README.md](./frontend/READM
 
 General information on how to eject the app can be found in the [create-react-native-app](https://github.com/react-community/create-react-native-app/blob/master/EJECTING.md)
 repository.
+
+#### Testing the app on a device
+
+Detailed instructions can be found on the [Running On Device](https://facebook.github.io/react-native/docs/running-on-device.html#building-your-app-for-production) page.
+
+For iOS, the release build can be created with the following command
+`react-native run-ios --configuration Release`
+
+For Android, a signed APK needs to generated. Instructions can be found on the [Generating Signed APK](https://facebook.github.io/react-native/docs/signed-apk-android.html) page.
