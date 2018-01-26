@@ -14,15 +14,15 @@ export default class AddButton extends React.Component {
   _onPress = async () => {
     try {
       let books = await AsyncStorage.getItem('@Bookcase:books');
+      let currentIsbns = [];
       if (books !== null) {
         books = JSON.parse(books);
         const currentIsbns = books.map(book => book.key);
-
-        this.props.navigation.navigate('AddBook', {
-          currentIsbns: currentIsbns,
-          readingStatus: this.props.navigation.state.routeName,
-        })
       }
+      this.props.navigation.navigate('AddBook', {
+        currentIsbns: currentIsbns,
+        readingStatus: this.props.navigation.state.routeName,
+      })
     } catch (error) {
       this.setState({ error: 'An error occurred while searching for new books' });
     }

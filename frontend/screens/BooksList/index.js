@@ -82,15 +82,14 @@ export default class BooksList extends React.Component {
       let books = await AsyncStorage.getItem('@Bookcase:books');
       if (books !== null) {
         books = JSON.parse(books);
-        books.push(newBook);
-        await AsyncStorage.setItem('@Bookcase:books', JSON.stringify(books));
-
-        this.setState({ loading: false }, () => {
-          this.props.navigation.navigate('Congrats', { data: books });
-        });
       } else {
-        this.setState({ loading: false });
+        books = [];
       }
+      books.push(newBook);
+      await AsyncStorage.setItem('@Bookcase:books', JSON.stringify(books));
+      this.setState({ loading: false }, () => {
+        this.props.navigation.navigate('Congrats', { data: books });
+      });
     } catch (error) {
       this.setState({ error: 'An error occurred while adding a book', loading: false });
     }
@@ -278,7 +277,8 @@ export default class BooksList extends React.Component {
 
   render() {
     if (this.state.loading) {
-      return this.renderLoading();
+      setTimeout(this.renderLoading, 200);
+      return this.renderList();
     } else if (this.state.error) {
       return this.renderError();
     } else {

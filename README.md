@@ -25,3 +25,13 @@ For iOS, the release build can be created with the following command
 `react-native run-ios --configuration Release`
 
 For Android, a signed APK needs to generated. Instructions can be found on the [Generating Signed APK](https://facebook.github.io/react-native/docs/signed-apk-android.html) page.
+
+##### Troubleshooting
+
+Unrecognized font family Material Icons
+
+Run `react-native link react-native-vector-icons`.
+https://github.com/react-native-training/react-native-elements/issues/503
+
+Configuring App Transport Security Exceptions
+https://ste.vn/2015/06/10/configuring-app-transport-security-ios-9-osx-10-11/
